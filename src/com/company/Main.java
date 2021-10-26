@@ -5,9 +5,10 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Bienvenu dans la blibliothèque 2.0");
+        System.out.println("Bienvenue dans la bibliotheque !");
+        System.out.println("----------------------------------");
 
-        System.out.println("Veuillez choisir une action : 1 - Connexion compte client 2 - Inscription nouveau client");
+        System.out.println("Veuillez choisir une action :\n1 - Connexion compte client \n2 - Inscription nouveau client");
 
         Scanner scan = new Scanner(System.in);
 
