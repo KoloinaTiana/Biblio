@@ -11,7 +11,7 @@ public class Journal extends Document {
 	@Override
 	public String toString() {
 		return "Journal [nomEditorialiste=" + nomEditorialiste +super.toString()+ "]";
-	}
+	 }
 	
 	
 }
