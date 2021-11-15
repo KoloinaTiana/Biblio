@@ -1,7 +1,6 @@
 package com.company;
 
-public class Administrateur {
-  import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Administrateur {
@@ -59,4 +58,4 @@ public class Administrateur {
 
 
 }
-}
+
