@@ -1,3 +1,5 @@
+package com.company;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,10 +19,10 @@ public class FenetreConnexion extends JFrame {
 	
 	
 	public FenetreConnexion() {
-		super("Connexion - B'ook la bibliothèque 2.0");
+		super("Connexion - B'ook la bibliotheque 2.0");
 		getContentPane().setFont(new Font("Yu Gothic", Font.PLAIN, 11));
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // termine le processus si la derniere fenêtre a été fermé
-		this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre 
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // termine le processus si la derniere fenetre a ete ferme
+		this.setResizable(false);// empeche toutes modifications de la taille de la fenetre
 		// centralise la fenetre et definit sa taille 
 		this.setSize(700, 500);
 		this.setLocationRelativeTo(null);
@@ -59,15 +61,15 @@ public class FenetreConnexion extends JFrame {
 		btnInscription.setBounds(203, 380, 273, 46);
 		getContentPane().add(btnInscription);
 		
-		JButton btnOublieMDP = new JButton("Mot de passe oubli\u00E9 ?");
-		btnOublieMDP.setBounds(203, 256, 135, 23);
+		JButton btnOublieMDP = new JButton("Mot de passe oublie ?");
+		btnOublieMDP.setBounds(200, 256, 180, 23);
 		getContentPane().add(btnOublieMDP);
 		
 		btnOublieMDP.setBorderPainted(false);
 		btnOublieMDP.setContentAreaFilled(false);
 		
 		JCheckBox chckbxSeSouvenir = new JCheckBox("Se souvenir de moi");
-		chckbxSeSouvenir.setBounds(361, 256, 115, 23);
+		chckbxSeSouvenir.setBounds(361, 256, 150, 23);
 		getContentPane().add(chckbxSeSouvenir);
 		
 		
