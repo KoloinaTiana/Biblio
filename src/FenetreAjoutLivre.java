@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public class FenetreAjoutLivre extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
@@ -21,6 +18,15 @@ public class FenetreAjoutLivre extends JFrame{
     public FenetreAjoutLivre() {
 
         super("Ajout livre - B'ook la bibliotheque 2.0");
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                killInstance();
+                dispose();
+            }
+        });
+        this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre
 
         String[] optionsToChoose = {"Autre", "Sport", "Histoire", "Informatique", "Geographie"};
 
@@ -159,7 +165,7 @@ public class FenetreAjoutLivre extends JFrame{
 
         if (allChecked == true) {
             System.out.println("Livre ajouté");
-            //Bibliotheque.getInstance().inscription(txtIdentifiant.getText(), String.valueOf(pwdMDP.getPassword()), txtPrenom.getText(), txtNom.getText(), txtAdresse.getText(), txtNumeroTelephone.getText(), txtEmail.getText());
+            Livre.getInstance().inscription(txtTitre.getText(), String.valueOf(pwdMDP.getPassword()), txtPrenom.getText(), txtNom.getText(), txtAdresse.getText(), txtNumeroTelephone.getText(), txtEmail.getText());
             //JOptionPane.showMessageDialog(this,"L'utilisateur " + txtIdentifiant.getText() + " a bien été inscrit","Confirmation inscription",JOptionPane.PLAIN_MESSAGE);
         }
 
