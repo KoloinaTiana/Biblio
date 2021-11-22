@@ -1,10 +1,15 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -12,14 +17,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+
+import net.proteanit.sql.DbUtils;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+
 
 public class FenetreUtilisateur extends JFrame{
 
 	private static final long serialVersionUID = 5739633010639612024L;
 	private Client client;
 	private static FenetreUtilisateur instance;
+	private JTable table;
+	private JTextField txtRecherche;
 
 	private FenetreUtilisateur(Client _client) {
 		super("Interface utilisateur - B'ook la bibliothèque 2.0");
@@ -83,6 +96,15 @@ public class FenetreUtilisateur extends JFrame{
 
 				}
 			});
+			buttonOff.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					FenetreConnexion.getInstance().setVisible(true);
+					FenetreUtilisateur.killInstance();
+
+				}
+			});
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -91,6 +113,50 @@ public class FenetreUtilisateur extends JFrame{
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		lblNewLabel.setBounds(54, 23, 240, 66);
 		contentPane.add(lblNewLabel);
+
+		JPanel paneEmprunt = new JPanel();
+		paneEmprunt.setBorder(new LineBorder(Color.BLACK, 2));
+		paneEmprunt.setBounds(412, 142, 731, 475);
+		contentPane.add(paneEmprunt);
+		paneEmprunt.setLayout(null);
+		paneEmprunt.setVisible(false);
+
+		JButton btnLivre = new JButton("Livre");
+		btnLivre.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		btnLivre.setBounds(54, 11, 273, 46);
+		paneEmprunt.add(btnLivre);
+
+		JButton btnAutreDocument = new JButton("Autre document");
+		btnAutreDocument.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		btnAutreDocument.setBounds(407, 11, 273, 46);
+		paneEmprunt.add(btnAutreDocument);
+
+		txtRecherche = new JTextField();
+		txtRecherche.setBounds(130, 80, 141, 35);
+		paneEmprunt.add(txtRecherche);
+		txtRecherche.setColumns(10);
+		txtRecherche.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				afficherTableau();
+
+			}
+		});
+
+		table = new JTable();
+		table.setBounds(0, 0, 658, 322);
+		JScrollPane scrollPane = new JScrollPane(table);
+		paneEmprunt.add(scrollPane);
+		scrollPane.setBounds(36, 118, 658, 322);
+
+		JLabel lbRechercher = new JLabel("Rechercher :");
+		lbRechercher.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lbRechercher.setBounds(40, 89, 80, 14);
+		paneEmprunt.add(lbRechercher);
+		table.setDefaultEditor(Object.class, null);
+
+		afficherTableau();
 
 		JPanel paneReservation = new JPanel();
 		paneReservation.setBorder(new LineBorder(Color.BLACK, 2));
@@ -107,23 +173,6 @@ public class FenetreUtilisateur extends JFrame{
 		btnReserverUnPc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnReserverUnPc.setBounds(404, 27, 273, 46);
 		paneReservation.add(btnReserverUnPc);
-
-		JPanel paneEmprunt = new JPanel();
-		paneEmprunt.setBorder(new LineBorder(Color.BLACK, 2));
-		paneEmprunt.setBounds(412, 142, 731, 475);
-		contentPane.add(paneEmprunt);
-		paneEmprunt.setLayout(null);
-		paneEmprunt.setVisible(false);
-
-		JButton btnLivre = new JButton("Livre");
-		btnLivre.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnLivre.setBounds(54, 28, 273, 46);
-		paneEmprunt.add(btnLivre);
-
-		JButton btnAutreDocument = new JButton("Autre document");
-		btnAutreDocument.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnAutreDocument.setBounds(407, 28, 273, 46);
-		paneEmprunt.add(btnAutreDocument);
 
 		JPanel paneAbonnement = new JPanel();
 		paneAbonnement.setBorder(new LineBorder(Color.BLACK, 2));
@@ -170,6 +219,23 @@ public class FenetreUtilisateur extends JFrame{
 		btnEmprunter.addActionListener(e->{paneEmprunt.setVisible(true);paneReservation.setVisible(false);});
 	}
 
+
+
+	private void afficherTableau() {
+
+		try {
+			PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("SELECT Titre, Auteur, Sujet FROM livre WHERE Titre LIKE '%" + txtRecherche.getText() +"%'");
+			ResultSet rs = ps.executeQuery();
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	}
+
+
+
 	public static FenetreUtilisateur getInstance(Client _client) {
 		if( instance == null ) {
 			instance = new FenetreUtilisateur(_client);
@@ -183,3 +249,5 @@ public class FenetreUtilisateur extends JFrame{
 		instance = null;
 	}
 }
+
+

@@ -1,3 +1,4 @@
+
 public abstract class Compte {
 
 	protected String identifiant;

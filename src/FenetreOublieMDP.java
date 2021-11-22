@@ -44,7 +44,7 @@ public class FenetreOublieMDP extends JFrame{
 
 		JLabel lbNouveauMDP = new JLabel("Nouveau mot de passe :");
 		lbNouveauMDP.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lbNouveauMDP.setBounds(88, 220, 188, 24);
+		lbNouveauMDP.setBounds(88, 220, 190, 24);
 		getContentPane().add(lbNouveauMDP);
 
 		pwdNouveauMDP = new JPasswordField();
@@ -53,14 +53,14 @@ public class FenetreOublieMDP extends JFrame{
 
 		JLabel lbNouveauMDPConfirm = new JLabel("Confirmer nouveau mot de passe :");
 		lbNouveauMDPConfirm.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lbNouveauMDPConfirm.setBounds(88, 260, 269, 24);
+		lbNouveauMDPConfirm.setBounds(88, 260, 272, 24);
 		getContentPane().add(lbNouveauMDPConfirm);
 
 		pwdNouveauMDPComfirm = new JPasswordField();
 		pwdNouveauMDPComfirm.setBounds(376, 260, 200, 28);
 		getContentPane().add(pwdNouveauMDPComfirm);
 
-		JButton btnComfirmer = new JButton("Comfirmer");
+		JButton btnComfirmer = new JButton("Confirmer");
 		btnComfirmer.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnComfirmer.setBounds(164, 396, 273, 46);
 		getContentPane().add(btnComfirmer);

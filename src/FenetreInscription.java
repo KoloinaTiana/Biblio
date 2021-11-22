@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -121,7 +122,7 @@ public class FenetreInscription extends JFrame{
 
 		JLabel lbEmail = new JLabel("E-mail :");
 		lbEmail.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lbEmail.setBounds(88, 260, 62, 20);
+		lbEmail.setBounds(88, 260, 63, 20);
 		contentPane.add(lbEmail);
 
 		txtEmail = new JTextField();
@@ -142,7 +143,7 @@ public class FenetreInscription extends JFrame{
 
 		JLabel lbMDPConfirm = new JLabel("Confirmer Mot de passe :");
 		lbMDPConfirm.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lbMDPConfirm.setBounds(88, 340, 203, 20);
+		lbMDPConfirm.setBounds(88, 340, 204, 20);
 		contentPane.add(lbMDPConfirm);
 
 		pwdMDPConfirm = new JPasswordField();
@@ -170,51 +171,51 @@ public class FenetreInscription extends JFrame{
 		separator_1.setBounds(0, 385, 600, 20);
 		contentPane.add(separator_1);
 
-		//Message d'erreur
 
-		lbWarningMissTxt_1 = new JLabel("Ce champ est obligatoire !");
+
+		lbWarningMissTxt_1 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_1.setForeground(Color.RED);
 		lbWarningMissTxt_1.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_1.setBounds(195, 122, 105, 20);
 		contentPane.add(lbWarningMissTxt_1);
 		lbWarningMissTxt_1.setVisible(false);
 
-		lbWarningMissTxt_2 = new JLabel("Ce champ est obligatoire !");
+		lbWarningMissTxt_2 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_2.setForeground(Color.RED);
 		lbWarningMissTxt_2.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_2.setBounds(175, 162, 105, 20);
 		contentPane.add(lbWarningMissTxt_2);
 		lbWarningMissTxt_2.setVisible(false);
 
-		lbWarningMissTxt_3 = new JLabel("Ce champ est obligatoire !");
+		lbWarningMissTxt_3 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_3.setForeground(Color.RED);
 		lbWarningMissTxt_3.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_3.setBounds(377, 162, 105, 20);
 		contentPane.add(lbWarningMissTxt_3);
 		lbWarningMissTxt_3.setVisible(false);
 
-		lbWarningMissTxt_4 = new JLabel("Ce champ est obligatoire !");
+		lbWarningMissTxt_4 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_4.setForeground(Color.RED);
 		lbWarningMissTxt_4.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_4.setBounds(180, 202, 105, 20);
 		contentPane.add(lbWarningMissTxt_4);
 		lbWarningMissTxt_4.setVisible(false);
 
-		lbWarningMissTxt_5 = new JLabel("Ce champ est obligatoire !");
+		lbWarningMissTxt_5 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_5.setForeground(Color.RED);
 		lbWarningMissTxt_5.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_5.setBounds(285, 242, 105, 20);
 		contentPane.add(lbWarningMissTxt_5);
 		lbWarningMissTxt_5.setVisible(false);
 
-		lbWarningMissTxt_6 = new JLabel("Ce champ est obligatoire !");
+		lbWarningMissTxt_6 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_6.setForeground(Color.RED);
 		lbWarningMissTxt_6.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_6.setBounds(167, 282, 105, 20);
 		contentPane.add(lbWarningMissTxt_6);
 		lbWarningMissTxt_6.setVisible(false);
 
-		lbWarningMissTxt_7 = new JLabel("Ce champ est obligatoire !");
+		lbWarningMissTxt_7 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_7.setForeground(Color.RED);
 		lbWarningMissTxt_7.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_7.setBounds(217, 322, 105, 20);
@@ -268,11 +269,16 @@ public class FenetreInscription extends JFrame{
 		}else
 			lbWarningMissTxt_7.setVisible(false);
 
-		if(Bibliotheque.getInstance().isUserExist(txtIdentifiant.getText())) {
-			lbWarningUserExist.setVisible(true);
+		try {
+			if(Bibliotheque.getInstance().isUserExist(txtIdentifiant.getText())) {
+				lbWarningUserExist.setVisible(true);
+				allChecked = false;
+			}else
+				lbWarningUserExist.setVisible(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
 			allChecked = false;
-		}else
-			lbWarningUserExist.setVisible(false);
+		}
 
 		if(!String.valueOf(pwdMDP.getPassword()).equals(String.valueOf(pwdMDPConfirm.getPassword()))) {
 			lbWarningMDPconfirm.setVisible(true);
@@ -282,8 +288,9 @@ public class FenetreInscription extends JFrame{
 
 		if (allChecked == true) {
 			System.out.println("Nouveau compte client créé");
-			Bibliotheque.getInstance().inscription(txtIdentifiant.getText(), String.valueOf(pwdMDP.getPassword()), txtPrenom.getText(), txtNom.getText(), txtAdresse.getText(), txtNumeroTelephone.getText(), txtEmail.getText());
+			Bibliotheque.getInstance().inscriptionClient(txtIdentifiant.getText(), String.valueOf(pwdMDP.getPassword()), txtPrenom.getText(), txtNom.getText(), txtAdresse.getText(), txtNumeroTelephone.getText(), txtEmail.getText());
 			JOptionPane.showMessageDialog(this,"L'utilisateur " + txtIdentifiant.getText() + " a bien été inscrit","Confirmation inscription",JOptionPane.PLAIN_MESSAGE);
+			FenetreInscription.killInstance();
 		}
 
 

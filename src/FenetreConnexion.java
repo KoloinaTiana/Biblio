@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -36,7 +37,7 @@ public class FenetreConnexion extends JFrame {
 
 	JPanel contentPane;
 
-	FenetreConnexion() {
+	private FenetreConnexion() {
 		super("Connexion - B'ook la bibliothèque 2.0");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // termine le processus si la derniere fenêtre a été fermé
 		this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre
@@ -201,8 +202,14 @@ public class FenetreConnexion extends JFrame {
 				FenetreInscription.killInstance();
 				FenetreConnexion.killInstance();
 			}
-			else
+			else {
 				System.out.println("Ouverture compte admin : " + c.identifiant);
+				FenetreAdmin fenetreAdmin = FenetreAdmin.getInstance((Admin)c);
+				fenetreAdmin.setVisible(true);
+				FenetreOublieMDP.killInstance();
+				FenetreInscription.killInstance();
+				FenetreConnexion.killInstance();
+			}
 
 		} catch (UserNotFoundException e1) {
 			System.out.println(e1);
@@ -211,6 +218,9 @@ public class FenetreConnexion extends JFrame {
 		} catch (IncorrectPasswordException e2) {
 			System.out.println(e2);
 			lbWarningIncorrectPassword.setVisible(true);
+		}
+		catch (SQLException e3) {
+			System.out.println(e3);;
 		}
 	}
 

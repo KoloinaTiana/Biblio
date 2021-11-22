@@ -3,23 +3,22 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class FenetreAjoutLivre extends JFrame{
+public class FenetreAjoutSalle extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
-    private static FenetreAjoutLivre instance;
+    private static FenetreAjoutSalle instance;
 
-    private JTextField txtTitre;
-    private JTextField txtAuteur;
-    private JComboBox<String> jComboBox;
-    private JTextArea txtResume;
+    private JTextField txtChaise;
+    private JTextField txtTable;
+    private JTextField txtTaille;
+    private JCheckBox proj;
 
     private JLabel lbWarningMissTxt_1;
     private JLabel lbWarningMissTxt_2;
 
+    public FenetreAjoutSalle() {
 
-    public FenetreAjoutLivre() {
-
-        super("Ajout livre - B'ook la bibliotheque 2.0");
+        super("Ajout Salle - B'ook la bibliotheque 2.0");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter(){
             @Override
@@ -28,7 +27,7 @@ public class FenetreAjoutLivre extends JFrame{
                 dispose();
             }
         });
-        this.setResizable(false);// empÃªche toutes modifications de la taille de la fenÃªtre
+        this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre
 
         String[] optionsToChoose = {"Autre", "Sport", "Histoire", "Informatique", "Geographie", "Roman"};
 
@@ -42,11 +41,11 @@ public class FenetreAjoutLivre extends JFrame{
         JPanel contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(null);
 
-        KeyAdapter enterKeyAjoutLivre = new KeyAdapter(){
+        KeyAdapter enterKeyAjoutSalle = new KeyAdapter(){
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-                        actionAjoutLivre();
+                        actionAjoutSalle();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -54,67 +53,59 @@ public class FenetreAjoutLivre extends JFrame{
             }
         };
 
-        JLabel lbTitre = new JLabel("Titre :");
-        lbTitre.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbTitre.setBounds(243, 20, 150, 20);
-        contentPane.add(lbTitre);
+        JLabel lbChaise = new JLabel("Nombre de chaise :");
+        lbChaise.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        lbChaise.setBounds(243, 80, 150, 20);
+        contentPane.add(lbChaise);
 
-        txtTitre = new JTextField();
-        txtTitre.setBounds(243, 50, 193, 28);
-        getContentPane().add(txtTitre);
-        txtTitre.setColumns(10);
+        txtChaise = new JTextField();
+        txtChaise.setBounds(243, 110, 193, 28);
+        getContentPane().add(txtChaise);
+        txtChaise.setColumns(10);
 
-        JLabel lbAuteur = new JLabel("Auteur :");
-        lbAuteur.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbAuteur.setSize(150, 20);
-        lbAuteur.setLocation(243, 100);
-        contentPane.add(lbAuteur);
+        JLabel lbTable = new JLabel("Nombre de table : ");
+        lbTable.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        lbTable.setSize(150, 20);
+        lbTable.setLocation(243, 180);
+        contentPane.add(lbTable);
 
-        txtAuteur = new JTextField();
-        txtAuteur.setBounds(243, 130, 193, 28);
-        getContentPane().add(txtAuteur);
-        txtAuteur.setColumns(10);
+        txtTable = new JTextField();
+        txtTable.setBounds(243, 210, 193, 28);
+        getContentPane().add(txtTable);
+        txtTable.setColumns(10);
 
-        JLabel lbSujet = new JLabel("Sujet :");
-        lbSujet.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbSujet.setSize(150, 20);
-        lbSujet.setLocation(243, 170);
-        contentPane.add(lbSujet);
+        JLabel lbTaille = new JLabel("Taille : ");
+        lbTaille.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        lbTaille.setSize(150, 20);
+        lbTaille.setLocation(243, 280);
+        contentPane.add(lbTaille);
 
-        jComboBox = new JComboBox<>(optionsToChoose);
-        jComboBox.setBounds(243, 200, 150, 28);
-        contentPane.add(jComboBox);
+        txtTable = new JTextField();
+        txtTable.setBounds(243, 310, 193, 28);
+        getContentPane().add(txtTable);
+        txtTable.setColumns(10);
 
-        JLabel lbResume = new JLabel("Resume :");
-        lbResume.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbResume.setSize(150, 20);
-        lbResume.setLocation(243, 240);
-        contentPane.add(lbResume);
 
-        txtResume= new JTextArea();
-        txtResume.setBounds(243, 270, 193, 100);
-        getContentPane().add(txtResume);
-        txtResume.setColumns(10);
 
         //boutons
 
         JButton btnAjout = new JButton("Ajouter");
         btnAjout.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAjout.setBounds(230, 400, 100, 40);
+        btnAjout.setBounds(230, 350, 100, 40);
         getContentPane().add(btnAjout);
         btnAjout.addActionListener(e-> {
             try {
-                actionAjoutLivre();
+                actionAjoutSalle();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         });
-        btnAjout.addKeyListener(enterKeyAjoutLivre);
+        btnAjout.addKeyListener(enterKeyAjoutSalle);
 
 
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAnnuler.setBounds(340, 400, 100, 40);
+        btnAnnuler.setBounds(340, 350, 100, 40);
         getContentPane().add(btnAnnuler);
 
         //Message d'erreur
@@ -122,17 +113,16 @@ public class FenetreAjoutLivre extends JFrame{
         lbWarningMissTxt_1 = new JLabel("Ce champ est obligatoire !");
         lbWarningMissTxt_1.setForeground(Color.RED);
         lbWarningMissTxt_1.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-        lbWarningMissTxt_1.setBounds(243, 81, 105, 20);
+        lbWarningMissTxt_1.setBounds(243, 181, 105, 20);
         contentPane.add(lbWarningMissTxt_1);
         lbWarningMissTxt_1.setVisible(false);
 
         lbWarningMissTxt_2 = new JLabel("Ce champ est obligatoire !");
         lbWarningMissTxt_2.setForeground(Color.RED);
         lbWarningMissTxt_2.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-        lbWarningMissTxt_2.setBounds(243, 152, 105, 20);
+        lbWarningMissTxt_2.setBounds(243, 261, 105, 20);
         contentPane.add(lbWarningMissTxt_2);
         lbWarningMissTxt_2.setVisible(false);
-
 
         btnAnnuler.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -143,9 +133,9 @@ public class FenetreAjoutLivre extends JFrame{
 
     }
 
-    public static FenetreAjoutLivre getInstance() {
+    public static FenetreAjoutSalle getInstance() {
         if( instance == null ) {
-            instance = new FenetreAjoutLivre();
+            instance = new FenetreAjoutSalle();
         }
         return instance;
     }
@@ -156,8 +146,8 @@ public class FenetreAjoutLivre extends JFrame{
         instance = null;
     }
 
-    private void actionAjoutLivre() throws SQLException {
-        JTextField[] txtFields = {txtTitre,txtAuteur};
+    private void actionAjoutSalle() throws SQLException {
+        JTextField[] txtFields = {txtTaille};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2};
         boolean allChecked = true;
 
@@ -170,9 +160,12 @@ public class FenetreAjoutLivre extends JFrame{
         }
 
         if (allChecked == true) {
-            Bibliotheque.getInstance().ajoutlivre(txtTitre.getText(), txtAuteur.getText(), jComboBox.getSelectedItem().toString(), txtResume.getText());
-            JOptionPane.showMessageDialog(this,"Le livre " + txtTitre.getText() + " a bien été ajouté","Confirmation ajout livre",JOptionPane.PLAIN_MESSAGE);
-            FenetreAjoutLivre.killInstance();
+            //Bibliotheque.getInstance().ajoutsalle(txtChaise.getText(),txtTable.getText(),txtTaille.getText(), txtTaille.getText());
+            JOptionPane.showMessageDialog(this,"La salle a bien été ajouté","Confirmation ajout salle",JOptionPane.PLAIN_MESSAGE);
+            txtTaille.setText("");
+            txtChaise.setText("0");
+            txtTable.setText("0");
         }
     }
 }
+
