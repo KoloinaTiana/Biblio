@@ -179,6 +179,7 @@ public class FenetreAdmin extends JFrame{
         btnFilm.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnFilm.setBounds(407, 28, 273, 46);
         paneDoc.add(btnFilm);
+        btnFilm.addActionListener(e->actionAjoutFilm());
 
         JButton btnJournal = new JButton("Journal");
         btnJournal.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -235,6 +236,12 @@ public class FenetreAdmin extends JFrame{
 
             }
         });
+    }
+
+    private void actionAjoutFilm() {
+        FenetreAjoutFilm fenetreAjoutFilm = FenetreAjoutFilm.getInstance();
+        fenetreAjoutFilm.setVisible(true);
+        fenetreAjoutFilm.setLocationRelativeTo(contentPane);
     }
 
     private void actionAjoutSalle() {

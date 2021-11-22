@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Year;
 import java.util.ArrayList;
 public class Bibliotheque{
 
@@ -167,4 +168,16 @@ public class Bibliotheque{
     }
 
 
+    public void ajoutFilm(String titre, String realisateur, Year annee) throws SQLException {
+        String requete = "INSERT INTO `film`(`Titre`,`Realisateur`, `Annee_sortie`) VALUES ('"+ titre +"','"+ realisateur +"','"+ annee+"')";
+
+        try {
+            Statement stmt = connexion.createStatement();
+            int nbMaj = stmt.executeUpdate(requete);
+            System.out.println(nbMaj + "film ajouté");
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new SQLException();
+        }
+    }
 }
