@@ -121,6 +121,7 @@ public class FenetreAdmin extends JFrame{
         btnAjouterUneSalle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAjouterUneSalle.setBounds(54, 27, 273, 46);
         paneSP.add(btnAjouterUneSalle);
+        btnAjouterUneSalle.addActionListener(e->actionAjoutSalle());
 
         JButton btnAjouterUnPc = new JButton("Ajouter un pc");
         btnAjouterUnPc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -234,6 +235,12 @@ public class FenetreAdmin extends JFrame{
 
             }
         });
+    }
+
+    private void actionAjoutSalle() {
+        FenetreAjoutSalle fenetreAjoutSalle = FenetreAjoutSalle.getInstance();
+        fenetreAjoutSalle.setVisible(true);
+        fenetreAjoutSalle.setLocationRelativeTo(contentPane);
     }
 
     private void afficherTableau() {
