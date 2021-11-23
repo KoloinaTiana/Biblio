@@ -111,6 +111,11 @@ public class FenetreAdmin extends JFrame{
         lblNewLabel.setBounds(54, 23, 240, 66);
         contentPane.add(lblNewLabel);
 
+        JLabel lblNewLabel1 = new JLabel("ADMINISTRATEUR");
+        lblNewLabel1.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        lblNewLabel1.setBounds(94, 85, 260, 40);
+        contentPane.add(lblNewLabel1);
+
         JPanel paneSP = new JPanel();
         paneSP.setBorder(new LineBorder(Color.BLACK, 2));
         paneSP.setBounds(412, 142, 731, 475);
@@ -198,8 +203,16 @@ public class FenetreAdmin extends JFrame{
         contentPane.add(btnAjouterDoc);
         btnAjouterDoc.addActionListener(e->{paneDoc.setVisible(true);paneSP.setVisible(false);paneUser.setVisible(false);});
 
+        JLabel lbPrenom = new JLabel(admin.prenom);
+        lbPrenom.setBounds(46, 113, 350, 24);
+        contentPane.add(lbPrenom);
+
+        JLabel lbNom = new JLabel(admin.nom);
+        lbNom.setBounds(46, 142, 308, 14);
+        contentPane.add(lbNom);
+
         JLabel lbIdentifiant = new JLabel(admin.identifiant);
-        lbIdentifiant.setBounds(46, 142, 308, 14);
+        lbIdentifiant.setBounds(46, 188, 308, 14);
         contentPane.add(lbIdentifiant);
 
         JButton btnModifCompte = new JButton("Modifier le compte");
@@ -217,6 +230,18 @@ public class FenetreAdmin extends JFrame{
                 throwables.printStackTrace();
             }
         });
+
+        JButton btnModif = new JButton("Modifier un utilisateur");
+        btnModif.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        btnModif.setBounds(280, 40, 200, 35);
+        paneUser.add(btnModif);
+        btnModif.addActionListener(e->actionModif());
+
+        JButton btnDelete = new JButton("Supprimer un utilisateur");
+        btnDelete.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        btnDelete.setBounds(500, 40, 200, 35);
+        paneUser.add(btnDelete);
+        btnDelete.addActionListener(e->actionDelete());
 
         JLabel lbRechercher = new JLabel("Rechercher :");
         lbRechercher.setFont(new Font("Times New Roman", Font.PLAIN, 15));
@@ -236,6 +261,18 @@ public class FenetreAdmin extends JFrame{
 
             }
         });
+    }
+
+    private void actionDelete() {
+        FenetreDeleteUser fenetreDeleteUser = FenetreDeleteUser.getInstance();
+        fenetreDeleteUser.setVisible(true);
+        fenetreDeleteUser.setLocationRelativeTo(contentPane);
+    }
+
+    private void actionModif() {
+        FenetreModifUser fenetreModifUser = FenetreModifUser.getInstance();
+        fenetreModifUser.setVisible(true);
+        fenetreModifUser.setLocationRelativeTo(contentPane);
     }
 
     private void actionAjoutFilm() {

@@ -176,6 +176,29 @@ public class Bibliotheque{
             int nbMaj = stmt.executeUpdate(requete);
             System.out.println(nbMaj + "film ajouté");
         } catch (SQLException e) {
+            throw new SQLException();
+        }
+    }
+
+    public void modifUser(String identifiant, String nom, String prenom, String adresse, String telephone, String email) throws SQLException {
+        String requete = "UPDATE `client` SET `Nom` ='"+nom+"', `Prenom` ='"+prenom+"', `Numero de telephone` ='"+telephone+"', `Adresse` ='"+adresse+"', `Email` ='"+email+"' WHERE `Identifiant` ='"+identifiant+"'";
+        try {
+            Statement stmt = connexion.createStatement();
+            int nbMaj = stmt.executeUpdate(requete);
+            System.out.println(nbMaj + "user modifié");
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new SQLException();
+        }
+    }
+
+    public void deleteUser(String id) throws SQLException {
+        String requete = "DELETE FROM `client` WHERE `Identifiant` ='"+id+"'";
+        try {
+            Statement stmt = connexion.createStatement();
+            int nbMaj = stmt.executeUpdate(requete);
+            System.out.println(nbMaj + "user supprimé");
+        } catch (SQLException e) {
             System.out.println(e);
             throw new SQLException();
         }

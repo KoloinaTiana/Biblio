@@ -4,9 +4,9 @@ public class Client extends Compte{
     private ArrayList<Reservation> reservations;
 
 
-    private String adresse;
-    private String numeroTelephone;
-    private String eMail;
+    public String adresse;
+    public String numeroTelephone;
+    public String eMail;
     //private boolean estAbonne;
 
     public Client(String _identifiant, String _motDePasse, String _prenom, String _nom, String _adresse, String _numeroTelephone, String _Email) {
