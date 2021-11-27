@@ -93,8 +93,12 @@ public class FenetreAjoutLivre extends JFrame{
 
         txtResume= new JTextArea();
         txtResume.setBounds(243, 270, 193, 100);
+        txtResume.setLineWrap(true);
+        txtResume.setWrapStyleWord(true);
         getContentPane().add(txtResume);
-        txtResume.setColumns(10);
+        JScrollPane scrollPane = new JScrollPane(txtResume);
+        scrollPane.setBounds(243, 270, 193, 100);
+        getContentPane().add(scrollPane);
 
         //boutons
 
