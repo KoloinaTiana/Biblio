@@ -18,8 +18,7 @@ public class FenetreAjoutJournal extends JFrame{
 
     private JLabel lbWarningMissTxt_1;
     private JLabel lbWarningMissTxt_2;
-
-     private JLabel lbWarningMissTxt_3;
+    private JLabel lbWarningMissTxt_3;
     
 
     public FenetreAjoutJournal()   {
@@ -81,7 +80,7 @@ public class FenetreAjoutJournal extends JFrame{
         getContentPane().add(txtDate);
         txtDate.setColumns(10);
 
-        JLabel lbNom = new JLabel("nom :");
+        JLabel lbNom = new JLabel("Nom du journal:");
         lbNom.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbNom.setSize(150, 20);
         lbNom.setLocation(243, 170);
@@ -91,9 +90,6 @@ public class FenetreAjoutJournal extends JFrame{
         txtNom.setBounds(243, 200, 193, 28);
         getContentPane().add(txtNom);
         txtNom.setColumns(10);
-        
-        
-
 
        
         //boutons
@@ -136,7 +132,7 @@ public class FenetreAjoutJournal extends JFrame{
         lbWarningMissTxt_3 = new JLabel("Ce champ est obligatoire !");
         lbWarningMissTxt_3.setForeground(Color.RED);
         lbWarningMissTxt_3.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-        lbWarningMissTxt_3.setBounds(243, 223, 105, 20);
+        lbWarningMissTxt_3.setBounds(243, 223, 110, 20);
         contentPane.add(lbWarningMissTxt_3);
         lbWarningMissTxt_3.setVisible(false);
 
@@ -150,7 +146,7 @@ public class FenetreAjoutJournal extends JFrame{
 
     }
 
-    public static FenetreAjoutJournal GetInstance() {
+    public static FenetreAjoutJournal getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutJournal();
         }
@@ -164,7 +160,7 @@ public class FenetreAjoutJournal extends JFrame{
     }
 
     private void actionAjoutJournal() throws SQLException {
-        JTextField[] txtFields = {txtDate,txtNom,txtEditorial};
+        JTextField[] txtFields = {txtEditorial,txtDate,txtNom};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2,lbWarningMissTxt_3};
         boolean allChecked = true;
 
@@ -172,8 +168,12 @@ public class FenetreAjoutJournal extends JFrame{
             if(txtFields[i].getText().length() == 0) {
                 warningsMissTxts[i].setVisible(true);
                 allChecked = false;
-            }else
+            }else {
                 warningsMissTxts[i].setVisible(false);
+                if (txtFields[1].getText().equals("YYYY-MM-DD")) {
+                    warningsMissTxts[1].setVisible(true);
+                }
+            }
         }
       
        

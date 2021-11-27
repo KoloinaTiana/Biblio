@@ -189,6 +189,7 @@ public class FenetreAdmin extends JFrame{
         JButton btnJournal = new JButton("Journal");
         btnJournal.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnJournal.setBounds(54, 80, 273, 46);
+        btnJournal.addActionListener(e->actionAjoutJournal());
         paneDoc.add(btnJournal);
 
         JButton btnAjouterSalle = new JButton("Ajouter une salle ou un pc");
@@ -279,6 +280,12 @@ public class FenetreAdmin extends JFrame{
         FenetreAjoutFilm fenetreAjoutFilm = FenetreAjoutFilm.getInstance();
         fenetreAjoutFilm.setVisible(true);
         fenetreAjoutFilm.setLocationRelativeTo(contentPane);
+    }
+
+    private void actionAjoutJournal() {
+        FenetreAjoutJournal fenetreAjoutJournal = FenetreAjoutJournal.getInstance();
+        fenetreAjoutJournal.setVisible(true);
+        fenetreAjoutJournal.setLocationRelativeTo(contentPane);
     }
 
     private void actionAjoutSalle() {
