@@ -23,6 +23,8 @@ public class FenetreAjoutJournal extends JFrame{
 
     public FenetreAjoutJournal()   {
 
+    //Debut caracteristique de la fenetre
+
         super("Ajout Journal - B'ook la bibliotheque 2.0");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter(){
@@ -32,10 +34,7 @@ public class FenetreAjoutJournal extends JFrame{
                 dispose();
             }
         }); 
-        this.setResizable(false);// empÃƒÂªche toutes modifications de la taille de la fenÃƒÂªtre
-
-        
-        
+        this.setResizable(false);// empeche toutes modifications de la taille de la fenetre
 
         getContentPane().setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // termine le processus si la derniere fenetre a ete ferme
@@ -58,7 +57,9 @@ public class FenetreAjoutJournal extends JFrame{
                 }
             }
         };
+    //Debut caracteristique de la fenetre
 
+    //Debut entree editorial du journal
         JLabel lbEditorial = new JLabel("Editorial :");
         lbEditorial.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbEditorial.setBounds(243, 20, 150, 20);
@@ -68,7 +69,9 @@ public class FenetreAjoutJournal extends JFrame{
         txtEditorial.setBounds(243, 50, 193, 28);
         getContentPane().add(txtEditorial);
         txtEditorial.setColumns(10);
+    //Fin entree editorial du journal
 
+    //Debut entree date du journal
         JLabel lbDate = new JLabel("Date :");
         lbDate.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbDate.setSize(150, 20);
@@ -79,7 +82,9 @@ public class FenetreAjoutJournal extends JFrame{
         txtDate.setBounds(243, 130, 193, 28);
         getContentPane().add(txtDate);
         txtDate.setColumns(10);
+    //Fin entree date du journal
 
+    //Debut entree nom du journal
         JLabel lbNom = new JLabel("Nom du journal:");
         lbNom.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbNom.setSize(150, 20);
@@ -90,10 +95,10 @@ public class FenetreAjoutJournal extends JFrame{
         txtNom.setBounds(243, 200, 193, 28);
         getContentPane().add(txtNom);
         txtNom.setColumns(10);
-
+    //Fin entree nom du journal
        
-        //boutons
-
+    //Debut boutons
+        //bouton ajout d'un journal
         JButton btnAjout = new JButton("Ajouter");
         btnAjout.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAjout.setBounds(230, 400, 100, 40);
@@ -107,14 +112,20 @@ public class FenetreAjoutJournal extends JFrame{
         });
         btnAjout.addKeyListener(enterKeyAjoutJournal);
 
-
+        //bouton annuler l'ajout d'un journal
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAnnuler.setBounds(340, 400, 100, 40);
         getContentPane().add(btnAnnuler);
+        btnAnnuler.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                killInstance();
+            }
+        });
+    //Fin boutons
 
-        //Message d'erreur
-
+    //Debut messages d'erreur
         lbWarningMissTxt_1 = new JLabel("Ce champ est obligatoire !");
         lbWarningMissTxt_1.setForeground(Color.RED);
         lbWarningMissTxt_1.setFont(new Font("Times New Roman", Font.PLAIN, 10));
@@ -135,17 +146,11 @@ public class FenetreAjoutJournal extends JFrame{
         lbWarningMissTxt_3.setBounds(243, 223, 110, 20);
         contentPane.add(lbWarningMissTxt_3);
         lbWarningMissTxt_3.setVisible(false);
-
-
-        btnAnnuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                killInstance();
-            }
-        });
+    //Fin messages d'erreur
 
     }
 
+    //Creation d'une instance d'ajout de journal
     public static FenetreAjoutJournal getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutJournal();
@@ -153,37 +158,38 @@ public class FenetreAjoutJournal extends JFrame{
         return instance;
     }
 
+    //Fonction qui detruit l'instance
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
+    //Verification des champs d'entrees et appel de l'insertion du journal dans la bdd
     private void actionAjoutJournal() throws SQLException {
         JTextField[] txtFields = {txtEditorial,txtDate,txtNom};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2,lbWarningMissTxt_3};
         boolean allChecked = true;
 
         for(int i = 0; i<txtFields.length; i++) {
-            if(txtFields[i].getText().length() == 0) {
-                warningsMissTxts[i].setVisible(true);
+            if(txtFields[i].getText().length() == 0) { //si le(s) champ(s) sont/est vide(s)
+                warningsMissTxts[i].setVisible(true); //montre le(s) message(s) d'erreur(s)
                 allChecked = false;
             }else {
                 warningsMissTxts[i].setVisible(false);
-                if (txtFields[1].getText().equals("YYYY-MM-DD")) {
-                    warningsMissTxts[1].setVisible(true);
+                if (txtFields[1].getText().equals("YYYY-MM-DD")) { //verifie si le champ date est sa valeur initiale
+                    warningsMissTxts[1].setVisible(true); //affiche le message d'erreur
                 }
             }
         }
-      
-       
-    if (allChecked == true) {
+
+    if (allChecked == true) { //si tous les champs sont ok
             Bibliotheque.getInstance().ajoutJournal(txtEditorial.getText(), txtDate.getText(), txtNom.getText());
             JOptionPane.showMessageDialog(this,"La Journal " + txtEditorial.getText() + " a bien été ajouté","Confirmation ajout Jourrnal",JOptionPane.PLAIN_MESSAGE);
-            FenetreAjoutJournal.killInstance();
+            FenetreAjoutJournal.killInstance(); //detruit l'instance de la fentre d'ajout de journal
         }
-}
     }
+}
 
 	
 

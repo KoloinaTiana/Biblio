@@ -32,6 +32,9 @@ public class FenetreAdmin extends JFrame{
     private JTextField txtRecherche;
 
     private FenetreAdmin(Admin _admin) {
+
+    //Debut caracteristique de la fenetre
+
         super("Interface administrateur - B'ook la bibliothéque 2.0");
 
         this.admin = _admin;
@@ -105,7 +108,9 @@ public class FenetreAdmin extends JFrame{
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+    //Fin caracteristique de la fenetre
 
+    //Debut affichage
         JLabel lblNewLabel = new JLabel("BIENVENUE");
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
         lblNewLabel.setBounds(54, 23, 240, 66);
@@ -116,23 +121,30 @@ public class FenetreAdmin extends JFrame{
         lblNewLabel1.setBounds(94, 85, 260, 40);
         contentPane.add(lblNewLabel1);
 
+        JLabel lbPrenom = new JLabel(admin.prenom);
+        lbPrenom.setBounds(46, 113, 350, 24);
+        contentPane.add(lbPrenom);
+
+        JLabel lbNom = new JLabel(admin.nom);
+        lbNom.setBounds(46, 142, 308, 14);
+        contentPane.add(lbNom);
+
+        JLabel lbIdentifiant = new JLabel(admin.identifiant);
+        lbIdentifiant.setBounds(46, 188, 308, 14);
+        contentPane.add(lbIdentifiant);
+
+        JButton btnModifCompte = new JButton("Modifier le compte");
+        btnModifCompte.setBounds(28, 214, 129, 23);
+        contentPane.add(btnModifCompte);
+
         JPanel paneSP = new JPanel();
         paneSP.setBorder(new LineBorder(Color.BLACK, 2));
         paneSP.setBounds(412, 142, 731, 475);
         contentPane.add(paneSP);
         paneSP.setLayout(null);
+    //Fin affichage
 
-        JButton btnAjouterUneSalle = new JButton("Ajouter une salle");
-        btnAjouterUneSalle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAjouterUneSalle.setBounds(54, 27, 273, 46);
-        paneSP.add(btnAjouterUneSalle);
-        btnAjouterUneSalle.addActionListener(e->actionAjoutSalle());
-
-        JButton btnAjouterUnPc = new JButton("Ajouter un pc");
-        btnAjouterUnPc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAjouterUnPc.setBounds(404, 27, 273, 46);
-        paneSP.add(btnAjouterUnPc);
-        btnAjouterUnPc.addActionListener(e->actionAjoutPc());
+    //Debut fonctionnalités de l'administrateur
 
         JPanel paneDoc = new JPanel();
         paneDoc.setBorder(new LineBorder(Color.BLACK, 2));
@@ -140,6 +152,13 @@ public class FenetreAdmin extends JFrame{
         contentPane.add(paneDoc);
         paneDoc.setLayout(null);
         paneDoc.setVisible(false);
+
+        JPanel paneUser = new JPanel();
+        paneUser.setBorder(new LineBorder(Color.BLACK, 2));
+        paneUser.setBounds(412, 142, 731, 475);
+        contentPane.add(paneUser);
+        paneUser.setLayout(null);
+        paneUser.setVisible(false);
 
         //gestion des utilisateurs
         JPanel paneUtilisateur = new JPanel();
@@ -153,12 +172,18 @@ public class FenetreAdmin extends JFrame{
         lblTitre.setBounds(10, 31, 306, 24);
         paneUtilisateur.add(lblTitre);
 
-        JPanel paneUser = new JPanel();
-        paneUser.setBorder(new LineBorder(Color.BLACK, 2));
-        paneUser.setBounds(412, 142, 731, 475);
-        contentPane.add(paneUser);
-        paneUser.setLayout(null);
-        paneUser.setVisible(false);
+        //Gestion des utilisateurs
+        JButton btnGerer = new JButton("Gérer");
+        btnGerer.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnGerer.setBounds(77, 100, 164, 46);
+        paneUtilisateur.add(btnGerer);
+        btnGerer.addActionListener(e->{paneUser.setVisible(true);paneDoc.setVisible(false);paneSP.setVisible(false);
+            try {
+                afficheliste();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
 
         table = new JTable();
         table.setBounds(0, 0, 658, 322);
@@ -166,8 +191,33 @@ public class FenetreAdmin extends JFrame{
         paneUser.add(scrollPane);
         scrollPane.setBounds(36, 118, 658, 322);
 
-        //Boutons
+        //Fonctionnalites
+        JButton btnAjouterSalle = new JButton("Ajouter une salle ou un pc");
+        btnAjouterSalle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnAjouterSalle.setBounds(480, 67, 273, 46);
+        contentPane.add(btnAjouterSalle);
+        btnAjouterSalle.addActionListener(e->{paneSP.setVisible(true);paneDoc.setVisible(false);paneUser.setVisible(false);});
 
+        JButton btnAjouterDoc = new JButton("Ajouter un document");
+        btnAjouterDoc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnAjouterDoc.setBounds(802, 67, 273, 46);
+        contentPane.add(btnAjouterDoc);
+        btnAjouterDoc.addActionListener(e->{paneDoc.setVisible(true);paneSP.setVisible(false);paneUser.setVisible(false);});
+
+        //Boutons d'ajout des materiels
+        JButton btnAjouterUneSalle = new JButton("Ajouter une salle");
+        btnAjouterUneSalle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnAjouterUneSalle.setBounds(54, 27, 273, 46);
+        paneSP.add(btnAjouterUneSalle);
+        btnAjouterUneSalle.addActionListener(e->actionAjoutSalle());
+
+        JButton btnAjouterUnPc = new JButton("Ajouter un pc");
+        btnAjouterUnPc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnAjouterUnPc.setBounds(404, 27, 273, 46);
+        paneSP.add(btnAjouterUnPc);
+        btnAjouterUnPc.addActionListener(e->actionAjoutPc());
+
+        //Boutons d'ajout de document
         JButton btnLivre = new JButton("Livre");
         btnLivre.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnLivre.setBounds(54, 28, 273, 46);
@@ -192,58 +242,21 @@ public class FenetreAdmin extends JFrame{
         btnJournal.addActionListener(e->actionAjoutJournal());
         paneDoc.add(btnJournal);
 
-        JButton btnAjouterSalle = new JButton("Ajouter une salle ou un pc");
-        btnAjouterSalle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAjouterSalle.setBounds(480, 67, 273, 46);
-        contentPane.add(btnAjouterSalle);
-        btnAjouterSalle.addActionListener(e->{paneSP.setVisible(true);paneDoc.setVisible(false);paneUser.setVisible(false);});
-
-        JButton btnAjouterDoc = new JButton("Ajouter un document");
-        btnAjouterDoc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAjouterDoc.setBounds(802, 67, 273, 46);
-        contentPane.add(btnAjouterDoc);
-        btnAjouterDoc.addActionListener(e->{paneDoc.setVisible(true);paneSP.setVisible(false);paneUser.setVisible(false);});
-
-        JLabel lbPrenom = new JLabel(admin.prenom);
-        lbPrenom.setBounds(46, 113, 350, 24);
-        contentPane.add(lbPrenom);
-
-        JLabel lbNom = new JLabel(admin.nom);
-        lbNom.setBounds(46, 142, 308, 14);
-        contentPane.add(lbNom);
-
-        JLabel lbIdentifiant = new JLabel(admin.identifiant);
-        lbIdentifiant.setBounds(46, 188, 308, 14);
-        contentPane.add(lbIdentifiant);
-
-        JButton btnModifCompte = new JButton("Modifier le compte");
-        btnModifCompte.setBounds(28, 214, 129, 23);
-        contentPane.add(btnModifCompte);
-
-        JButton btnGerer = new JButton("Gérer");
-        btnGerer.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnGerer.setBounds(77, 100, 164, 46);
-        paneUtilisateur.add(btnGerer);
-        btnGerer.addActionListener(e->{paneUser.setVisible(true);paneDoc.setVisible(false);paneSP.setVisible(false);
-            try {
-                afficheliste();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        });
-
+        //Bouton pour modifier un utilisateur
         JButton btnModif = new JButton("Modifier un utilisateur");
         btnModif.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         btnModif.setBounds(280, 40, 200, 35);
         paneUser.add(btnModif);
         btnModif.addActionListener(e->actionModif());
 
+        //Bouton pour supprimer un utilisateur
         JButton btnDelete = new JButton("Supprimer un utilisateur");
         btnDelete.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         btnDelete.setBounds(500, 40, 200, 35);
         paneUser.add(btnDelete);
         btnDelete.addActionListener(e->actionDelete());
 
+        //Filtre de recherche pour la liste des clients
         JLabel lbRechercher = new JLabel("Rechercher :");
         lbRechercher.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         lbRechercher.setBounds(40, 49, 80, 14);
@@ -262,38 +275,59 @@ public class FenetreAdmin extends JFrame{
 
             }
         });
+    //Fin fonctionnalités de l'administrateur
     }
 
+    //Suppression d'un utilisateur
     private void actionDelete() {
         FenetreDeleteUser fenetreDeleteUser = FenetreDeleteUser.getInstance();
         fenetreDeleteUser.setVisible(true);
         fenetreDeleteUser.setLocationRelativeTo(contentPane);
     }
 
+    //Modification d'un utilisateur
     private void actionModif() {
         FenetreModifUser fenetreModifUser = FenetreModifUser.getInstance();
         fenetreModifUser.setVisible(true);
         fenetreModifUser.setLocationRelativeTo(contentPane);
     }
 
+    //Ajout d'un film
     private void actionAjoutFilm() {
         FenetreAjoutFilm fenetreAjoutFilm = FenetreAjoutFilm.getInstance();
         fenetreAjoutFilm.setVisible(true);
         fenetreAjoutFilm.setLocationRelativeTo(contentPane);
     }
 
+    //Ajout d'un journal
     private void actionAjoutJournal() {
         FenetreAjoutJournal fenetreAjoutJournal = FenetreAjoutJournal.getInstance();
         fenetreAjoutJournal.setVisible(true);
         fenetreAjoutJournal.setLocationRelativeTo(contentPane);
     }
 
+    //Ajout d'une salle
     private void actionAjoutSalle() {
         FenetreAjoutSalle fenetreAjoutSalle = FenetreAjoutSalle.getInstance();
         fenetreAjoutSalle.setVisible(true);
         fenetreAjoutSalle.setLocationRelativeTo(contentPane);
     }
 
+    //Ajout d'un livre
+    private void actionAjoutLivre(){
+        FenetreAjoutLivre fenetreAjoutLivre = FenetreAjoutLivre.getInstance();
+        fenetreAjoutLivre.setVisible(true);
+        fenetreAjoutLivre.setLocationRelativeTo(contentPane);
+    }
+
+    //Ajout d'un pc
+    private void actionAjoutPc(){
+        FenetreAjoutPc fenetreAjoutPc = FenetreAjoutPc.getInstance();
+        fenetreAjoutPc.setVisible(true);
+        fenetreAjoutPc.setLocationRelativeTo(contentPane);
+    }
+
+    //Affichage du tableau par rapport à la recherche
     private void afficherTableau() {
 
         try {
@@ -307,6 +341,7 @@ public class FenetreAdmin extends JFrame{
 
     }
 
+    //Affichage de la liste des clients
     private void afficheliste() throws SQLException {
         try {
             Connection con = Bibliotheque.getInstance().getConnexion();
@@ -326,6 +361,7 @@ public class FenetreAdmin extends JFrame{
         }
     }
 
+    //Creation instance Admin
     public static FenetreAdmin getInstance(Admin _admin) {
         if( instance == null ) {
             instance = new FenetreAdmin(_admin);
@@ -333,21 +369,10 @@ public class FenetreAdmin extends JFrame{
         return instance;
     }
 
+    //Destruction de l'instance
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
-    }
-
-    private void actionAjoutLivre(){
-        FenetreAjoutLivre fenetreAjoutLivre = FenetreAjoutLivre.getInstance();
-        fenetreAjoutLivre.setVisible(true);
-        fenetreAjoutLivre.setLocationRelativeTo(contentPane);
-    }
-
-    private void actionAjoutPc(){
-        FenetreAjoutPc fenetreAjoutPc = FenetreAjoutPc.getInstance();
-        fenetreAjoutPc.setVisible(true);
-        fenetreAjoutPc.setLocationRelativeTo(contentPane);
     }
 }

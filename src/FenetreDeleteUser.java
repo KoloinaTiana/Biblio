@@ -16,6 +16,8 @@ public class FenetreDeleteUser extends JFrame{
 
     public FenetreDeleteUser() {
 
+    //Debut caracteristiques de la fenetre
+
         super("Supprimer un utilisateur - B'ook la bibliotheque 2.0");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter(){
@@ -48,7 +50,9 @@ public class FenetreDeleteUser extends JFrame{
                 }
             }
         };
+    //Fin caracteristiques de la fenetre
 
+    //Debut entree
         JLabel lbIdentifiant = new JLabel("Identifiant du client à supprimer :");
         lbIdentifiant.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbIdentifiant.setBounds(220, 150, 280, 20);
@@ -58,9 +62,11 @@ public class FenetreDeleteUser extends JFrame{
         txtIdentifiant.setBounds(220, 230, 280, 35);
         contentPane.add(txtIdentifiant);
         txtIdentifiant.setColumns(10);
+    //Fin entree
 
-        //boutons
+    //Debut des boutons
 
+        //Bouton supprimer l'utilisateur
         JButton btnAjout = new JButton("Supprimer");
         btnAjout.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAjout.setBounds(220, 350, 120, 40);
@@ -75,13 +81,19 @@ public class FenetreDeleteUser extends JFrame{
         });
         btnAjout.addKeyListener(enterKeyDeleteUser);
 
-
+        //Bouton annuler la suppression
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAnnuler.setBounds(380, 350, 120, 40);
         getContentPane().add(btnAnnuler);
+        btnAnnuler.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                killInstance();
+            }
+        });
 
-        //Message d'erreur
+    //Debut messages d'erreur
 
         lbWarningMissTxt_0 = new JLabel("Choisir un client à supprimer !");
         lbWarningMissTxt_0.setForeground(Color.RED);
@@ -97,25 +109,20 @@ public class FenetreDeleteUser extends JFrame{
         contentPane.add(lbWarningUserNotFound);
         lbWarningUserNotFound.setVisible(false);
 
-
-        btnAnnuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                killInstance();
-            }
-        });
+    //Fin messages d'erreur
 
     }
 
+    //Verification si l'utilisateur existe
     private void actionFind() {
         lbWarningUserNotFound.setVisible(false);
-        if(txtIdentifiant.getText().length() == 0) {
-            lbWarningMissTxt_0.setVisible(true);
+        if(txtIdentifiant.getText().length() == 0) { //si le champ identifiant est vide
+            lbWarningMissTxt_0.setVisible(true); //montre le message d'erreur
         }else {
             lbWarningMissTxt_0.setVisible(false);
             try {
                 Client c = Bibliotheque.getInstance().trouverUtilisateur(txtIdentifiant.getText());
-                if (c != null) {
+                if (c != null) { //si utilisateur existe
                     System.out.println("client : " + c.identifiant);
                     exist = true;
                 }else{
@@ -129,6 +136,7 @@ public class FenetreDeleteUser extends JFrame{
         }
     }
 
+    //Creation instance suppression utilisateur
     public static FenetreDeleteUser getInstance() {
         if( instance == null ) {
             instance = new FenetreDeleteUser();
@@ -136,27 +144,29 @@ public class FenetreDeleteUser extends JFrame{
         return instance;
     }
 
+    //Destruction de l'utilisateur
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
+    //Verification du champ et appel suppression de l'utilisateur dans la bdd
     private void actionDeleteUser() throws SQLException {
         JTextField[] txtFields = {txtIdentifiant};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_0};
         boolean allChecked = true;
             for (int i = 0; i < txtFields.length; i++) {
-                if (txtFields[i].getText().length() == 0) {
+                if (txtFields[i].getText().length() == 0) { //si le champ est vide
                     warningsMissTxts[i].setVisible(true);
                     allChecked = false;
                 } else
                     warningsMissTxts[i].setVisible(false);
             }
-            if (allChecked == true && exist == true) {
+            if (allChecked == true && exist == true) { //si le champ ok et utilisateur existant
                 Bibliotheque.getInstance().deleteUser(txtIdentifiant.getText());
                 JOptionPane.showMessageDialog(this, "Utilisateur " + txtIdentifiant.getText() + " a bien été supprimé", "Confirmation suppression", JOptionPane.PLAIN_MESSAGE);
-                FenetreDeleteUser.killInstance();
+                FenetreDeleteUser.killInstance(); //detruit l'instance
             }
     }
 }

@@ -19,6 +19,8 @@ public class FenetreAjoutLivre extends JFrame{
 
     public FenetreAjoutLivre() {
 
+    //Debut caracteristique de la fenetre
+
         super("Ajout livre - B'ook la bibliotheque 2.0");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter(){
@@ -28,9 +30,7 @@ public class FenetreAjoutLivre extends JFrame{
                 dispose();
             }
         });
-        this.setResizable(false);// empÃªche toutes modifications de la taille de la fenÃªtre
-
-        String[] optionsToChoose = {"Autre", "Sport", "Histoire", "Informatique", "Geographie", "Roman"};
+        this.setResizable(false);// empeche toutes modifications de la taille de la fenetre
 
         getContentPane().setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // termine le processus si la derniere fenetre a ete ferme
@@ -53,7 +53,13 @@ public class FenetreAjoutLivre extends JFrame{
                 }
             }
         };
+    //Fin caracteristique de la fenetre
 
+        //Liste des sujets du livre
+        String[] optionsToChoose = {"Autre", "Sport", "Histoire", "Informatique", "Geographie", "Roman"};
+
+
+    //Debut entree titre du livre
         JLabel lbTitre = new JLabel("Titre :");
         lbTitre.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbTitre.setBounds(243, 20, 150, 20);
@@ -63,7 +69,9 @@ public class FenetreAjoutLivre extends JFrame{
         txtTitre.setBounds(243, 50, 193, 28);
         getContentPane().add(txtTitre);
         txtTitre.setColumns(10);
+    //Fin entree titre du livre
 
+    //Debut entree auteur du livre
         JLabel lbAuteur = new JLabel("Auteur :");
         lbAuteur.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbAuteur.setSize(150, 20);
@@ -74,7 +82,9 @@ public class FenetreAjoutLivre extends JFrame{
         txtAuteur.setBounds(243, 130, 193, 28);
         getContentPane().add(txtAuteur);
         txtAuteur.setColumns(10);
+    //Fin entree auteur du livre
 
+    //Debut entree sujet du livre
         JLabel lbSujet = new JLabel("Sujet :");
         lbSujet.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbSujet.setSize(150, 20);
@@ -84,7 +94,9 @@ public class FenetreAjoutLivre extends JFrame{
         jComboBox = new JComboBox<>(optionsToChoose);
         jComboBox.setBounds(243, 200, 150, 28);
         contentPane.add(jComboBox);
+    //Fin entree sujet du livre
 
+    //Debut entree resume du livre
         JLabel lbResume = new JLabel("Resume :");
         lbResume.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbResume.setSize(150, 20);
@@ -99,9 +111,10 @@ public class FenetreAjoutLivre extends JFrame{
         JScrollPane scrollPane = new JScrollPane(txtResume);
         scrollPane.setBounds(243, 270, 193, 100);
         getContentPane().add(scrollPane);
+    //Fin entree resume du livre
 
-        //boutons
-
+    //Debut boutons
+        //bouton ajout d'un livre
         JButton btnAjout = new JButton("Ajouter");
         btnAjout.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAjout.setBounds(230, 400, 100, 40);
@@ -115,13 +128,21 @@ public class FenetreAjoutLivre extends JFrame{
         });
         btnAjout.addKeyListener(enterKeyAjoutLivre);
 
-
+        //bouton annuler ajout d'un livre
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnAnnuler.setBounds(340, 400, 100, 40);
         getContentPane().add(btnAnnuler);
+        btnAnnuler.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                killInstance(); //detruit l'instance
+            }
+        });
 
-        //Message d'erreur
+    //Fin boutons
+
+    //Debut messages d'erreur
 
         lbWarningMissTxt_1 = new JLabel("Ce champ est obligatoire !");
         lbWarningMissTxt_1.setForeground(Color.RED);
@@ -136,17 +157,11 @@ public class FenetreAjoutLivre extends JFrame{
         lbWarningMissTxt_2.setBounds(243, 152, 105, 20);
         contentPane.add(lbWarningMissTxt_2);
         lbWarningMissTxt_2.setVisible(false);
-
-
-        btnAnnuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                killInstance();
-            }
-        });
+    //Fin message d'erreur
 
     }
 
+    //Creation d'une instance d'ajout de livre
     public static FenetreAjoutLivre getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutLivre();
@@ -160,20 +175,21 @@ public class FenetreAjoutLivre extends JFrame{
         instance = null;
     }
 
+    //Fonction qui verifie les champs et appelle l'ajout de livre dans la bdd
     private void actionAjoutLivre() throws SQLException {
         JTextField[] txtFields = {txtTitre,txtAuteur};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2};
         boolean allChecked = true;
 
         for(int i = 0; i<txtFields.length; i++) {
-            if(txtFields[i].getText().length() == 0) {
-                warningsMissTxts[i].setVisible(true);
+            if(txtFields[i].getText().length() == 0) { //si le(s) champ(s) sont/est vide(s)
+                warningsMissTxts[i].setVisible(true); //montrer le(s) message(s) d'erreur
                 allChecked = false;
             }else
                 warningsMissTxts[i].setVisible(false);
         }
 
-        if (allChecked == true) {
+        if (allChecked == true) { //si tous les champs sont ok
             Bibliotheque.getInstance().ajoutlivre(txtTitre.getText(), txtAuteur.getText(), jComboBox.getSelectedItem().toString(), txtResume.getText());
             JOptionPane.showMessageDialog(this,"Le livre " + txtTitre.getText() + " a bien été ajouté","Confirmation ajout livre",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutLivre.killInstance();

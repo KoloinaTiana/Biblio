@@ -35,6 +35,9 @@ public class FenetreUtilisateur extends JFrame{
 	private JTextField txtRecherche;
 
 	private FenetreUtilisateur(Client _client) {
+
+	//Debut caracteristiques de la fenetre
+
 		super("Interface utilisateur - B'ook la bibliothèque 2.0");
 
 		this.client = _client;
@@ -108,11 +111,49 @@ public class FenetreUtilisateur extends JFrame{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	//Fin caracteristiques de la fenetre
 
+	//Debut affichage
 		JLabel lblNewLabel = new JLabel("BIENVENUE");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		lblNewLabel.setBounds(54, 23, 240, 66);
 		contentPane.add(lblNewLabel);
+
+		JLabel lbPrenom = new JLabel(client.prenom);
+		lbPrenom.setBounds(46, 113, 350, 24);
+		contentPane.add(lbPrenom);
+
+		JLabel lbNom = new JLabel(client.nom);
+		lbNom.setBounds(46, 142, 308, 14);
+		contentPane.add(lbNom);
+
+		JLabel lbIdentifiant = new JLabel(client.identifiant);
+		lbIdentifiant.setBounds(46, 188, 308, 14);
+		contentPane.add(lbIdentifiant);
+
+		JButton btnModifCompte = new JButton("Modifier le compte");
+		btnModifCompte.setBounds(28, 214, 129, 23);
+		contentPane.add(btnModifCompte);
+
+		JPanel paneAbonnement = new JPanel();
+		paneAbonnement.setBorder(new LineBorder(Color.BLACK, 2));
+		paneAbonnement.setBounds(28, 419, 326, 198);
+		contentPane.add(paneAbonnement);
+		paneAbonnement.setLayout(null);
+
+		JLabel lblAbonnementRestant = new JLabel("Temps d'abonnement restant : 19 jours");
+		lblAbonnementRestant.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblAbonnementRestant.setBounds(10, 31, 306, 24);
+		paneAbonnement.add(lblAbonnementRestant);
+
+		JButton btnRechargerAbonnement = new JButton("Recharger");
+		btnRechargerAbonnement.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		btnRechargerAbonnement.setBounds(77, 100, 164, 46);
+		paneAbonnement.add(btnRechargerAbonnement);
+
+	//Fin affichage
+
+	//Debut fonctionnalites
 
 		JPanel paneEmprunt = new JPanel();
 		paneEmprunt.setBorder(new LineBorder(Color.BLACK, 2));
@@ -150,6 +191,8 @@ public class FenetreUtilisateur extends JFrame{
 		paneEmprunt.add(scrollPane);
 		scrollPane.setBounds(36, 118, 658, 322);
 
+		//Bouton du filtre de recherche
+
 		JLabel lbRechercher = new JLabel("Rechercher :");
 		lbRechercher.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		lbRechercher.setBounds(40, 89, 80, 14);
@@ -174,22 +217,6 @@ public class FenetreUtilisateur extends JFrame{
 		btnReserverUnPc.setBounds(404, 27, 273, 46);
 		paneReservation.add(btnReserverUnPc);
 
-		JPanel paneAbonnement = new JPanel();
-		paneAbonnement.setBorder(new LineBorder(Color.BLACK, 2));
-		paneAbonnement.setBounds(28, 419, 326, 198);
-		contentPane.add(paneAbonnement);
-		paneAbonnement.setLayout(null);
-
-		JLabel lblAbonnementRestant = new JLabel("Temps d'abonnement restant : 19 jours");
-		lblAbonnementRestant.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblAbonnementRestant.setBounds(10, 31, 306, 24);
-		paneAbonnement.add(lblAbonnementRestant);
-
-		JButton btnRechargerAbonnement = new JButton("Recharger");
-		btnRechargerAbonnement.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		btnRechargerAbonnement.setBounds(77, 100, 164, 46);
-		paneAbonnement.add(btnRechargerAbonnement);
-
 		JButton btnReserver = new JButton("Reserver une salle ou un pc");
 		btnReserver.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnReserver.setBounds(480, 67, 273, 46);
@@ -200,26 +227,14 @@ public class FenetreUtilisateur extends JFrame{
 		btnEmprunter.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		btnEmprunter.setBounds(802, 67, 273, 46);
 		contentPane.add(btnEmprunter);
-
-		JLabel lbPrenom = new JLabel(client.prenom);
-		lbPrenom.setBounds(46, 113, 350, 24);
-		contentPane.add(lbPrenom);
-
-		JLabel lbNom = new JLabel(client.nom);
-		lbNom.setBounds(46, 142, 308, 14);
-		contentPane.add(lbNom);
-
-		JLabel lbIdentifiant = new JLabel(client.identifiant);
-		lbIdentifiant.setBounds(46, 188, 308, 14);
-		contentPane.add(lbIdentifiant);
-
-		JButton btnModifCompte = new JButton("Modifier le compte");
-		btnModifCompte.setBounds(28, 214, 129, 23);
-		contentPane.add(btnModifCompte);
 		btnEmprunter.addActionListener(e->{paneEmprunt.setVisible(true);paneReservation.setVisible(false);});
+
+	//Fin fonctionnalites
+
 	}
 
 
+	//Affiche la liste des utilisateurs par rapport à la recherche effectué
 
 	private void afficherTableau() {
 
@@ -234,8 +249,7 @@ public class FenetreUtilisateur extends JFrame{
 
 	}
 
-
-
+	//Creation d'une instance utilisateur
 	public static FenetreUtilisateur getInstance(Client _client) {
 		if( instance == null ) {
 			instance = new FenetreUtilisateur(_client);
@@ -243,6 +257,7 @@ public class FenetreUtilisateur extends JFrame{
 		return instance;
 	}
 
+	//Destruction de l'instance
 	public static void killInstance() {
 		if (instance != null)
 			instance.setVisible(false);
