@@ -178,7 +178,7 @@ public class FenetreAjoutJournal extends JFrame{
       
        
     if (allChecked == true) {
-            Bibliotheque.getInstance().ajoutlivre(txtEditorial.getText(), txtDate.getText(), txtNom.getText());
+            Bibliotheque.getInstance().ajoutJournal(txtEditorial.getText(), txtDate.getText(), txtNom.getText());
             JOptionPane.showMessageDialog(this,"La Journal " + txtEditorial.getText() + " a bien été ajouté","Confirmation ajout Jourrnal",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutJournal.killInstance();
         }
