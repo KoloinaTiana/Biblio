@@ -32,7 +32,7 @@ public class FenetreAjoutJournal extends JFrame{
                 killInstance();
                 dispose();
             }
-        });
+        }); 
         this.setResizable(false);// empÃƒÂªche toutes modifications de la taille de la fenÃƒÂªtre
 
         
