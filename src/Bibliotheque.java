@@ -168,7 +168,7 @@ public class Bibliotheque{
         }
     }
 
-    public void ajoutJournal (String Editorial, Date Date, String Nom) throws SQLException {
+    public void ajoutJournal (String Editorial, String Date, String Nom) throws SQLException {
         String requete = "INSERT INTO `journal`(`Editorial`,`Journal_date`, `Journal_nom`) VALUES ('"+ Editorial +"','"+ Date +"','"+ Nom +"')";
 
         try {
