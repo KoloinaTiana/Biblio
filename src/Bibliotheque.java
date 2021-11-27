@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Year;
 import java.util.ArrayList;
+import java.sql.Date;
 public class Bibliotheque{
 
     private static Bibliotheque instance;
@@ -167,6 +168,17 @@ public class Bibliotheque{
         }
     }
 
+    public void ajoutJournal (String Editorial, Date Date, String Nom) throws SQLException {
+        String requete = "INSERT INTO `journal`(`Editorial`,`Journal_date`, `Journal_nom`) VALUES ('"+ Editorial +"','"+ Date +"','"+ Nom +"')";
+
+        try {
+            Statement stmt = connexion.createStatement();
+            int nbMaj = stmt.executeUpdate(requete);
+            System.out.println(nbMaj + "journal ajouté");
+        } catch (SQLException e) {
+            throw new SQLException();
+        }
+    }
 
     public void ajoutFilm(String titre, String realisateur, Year annee) throws SQLException {
         String requete = "INSERT INTO `film`(`Titre`,`Realisateur`, `Annee_sortie`) VALUES ('"+ titre +"','"+ realisateur +"','"+ annee+"')";
