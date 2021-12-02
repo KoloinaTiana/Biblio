@@ -38,7 +38,7 @@ public class FenetreConnexion extends JFrame {
 	JPanel contentPane;
 
 	private FenetreConnexion() {
-		super("Connexion - B'ook la bibliothèque 2.0");
+		super("Connexion - B'ook la bibliotheque 2.0");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // termine le processus si la derniere fenêtre a été fermé
 		this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre
 
@@ -108,7 +108,7 @@ public class FenetreConnexion extends JFrame {
 		});
 		btnInscription.addActionListener(e->actionInscription());
 
-		String oublieMDP = "Mot de passe oublié ?";
+		String oublieMDP = "Mot de passe oublie ?";
 		JLabel lbOublieMDP = new JLabel(oublieMDP);
 		Color oublieMDPColor = lbOublieMDP.getForeground();
 		lbOublieMDP.setBounds(172, 375, 125, 23);

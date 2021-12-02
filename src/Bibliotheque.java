@@ -91,6 +91,7 @@ public class Bibliotheque{
             ResultSet res = stmt.executeQuery("SELECT * FROM client WHERE Identifiant ='"+ id +"'");
             if (res.next()) {
                 System.out.println("Compte Utilisateur trouvé");
+                int ID = res.getInt("ID_client");
                 String Identifiant = res.getString("Identifiant");
                 String MDP = res.getString("Mot de Passe");
                 String prenom = res.getString("Prenom");
@@ -99,7 +100,7 @@ public class Bibliotheque{
                 String numeroTelephone = res.getString("Numero de telephone");
                 String eMail = res.getString("Email");
                 System.out.println(Identifiant + " " + MDP + " " + prenom + " " + nom+ " " + adresse+ " " + numeroTelephone+ " " + eMail);
-                Client client = new Client(Identifiant,MDP,prenom,nom,adresse,numeroTelephone,eMail);
+                Client client = new Client(ID, Identifiant,MDP,prenom,nom,adresse,numeroTelephone,eMail);
                 return client;
             }else
                 return null;
