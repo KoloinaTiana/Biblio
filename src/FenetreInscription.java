@@ -1,19 +1,9 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.sql.SQLException;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class FenetreInscription extends JFrame{
 
@@ -171,8 +161,6 @@ public class FenetreInscription extends JFrame{
 		separator_1.setBounds(0, 385, 600, 20);
 		contentPane.add(separator_1);
 
-
-
 		lbWarningMissTxt_1 = new JLabel("Ce champ doit être rempli");
 		lbWarningMissTxt_1.setForeground(Color.RED);
 		lbWarningMissTxt_1.setFont(new Font("Times New Roman", Font.PLAIN, 10));
@@ -229,12 +217,28 @@ public class FenetreInscription extends JFrame{
 		contentPane.add(lbWarningMDPconfirm);
 		lbWarningMDPconfirm.setVisible(false);
 
-		lbWarningUserExist = new JLabel("Cette utilisateur existe déjà");
+		lbWarningUserExist = new JLabel("Cette utilisateur existe deja");
 		lbWarningUserExist.setForeground(Color.RED);
 		lbWarningUserExist.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningUserExist.setBounds(195, 122, 109, 20);
 		contentPane.add(lbWarningUserExist);
 		lbWarningUserExist.setVisible(false);
+
+		JCheckBox showPasswordCheckbox = new JCheckBox("Afficher mots de passe");
+		showPasswordCheckbox.setBounds(400, 308, 250, 23);
+		getContentPane().add(showPasswordCheckbox);
+
+		showPasswordCheckbox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					pwdMDP.setEchoChar((char) 0);
+					pwdMDPConfirm.setEchoChar((char) 0);
+				} else {
+					pwdMDP.setEchoChar('*');
+					pwdMDPConfirm.setEchoChar('*');
+				}
+			}
+		});
 	}
 
 	public static FenetreInscription getInstance() {
@@ -287,9 +291,9 @@ public class FenetreInscription extends JFrame{
 			lbWarningMDPconfirm.setVisible(false);
 
 		if (allChecked == true) {
-			System.out.println("Nouveau compte client créé");
+			System.out.println("Nouveau compte client cree");
 			Bibliotheque.getInstance().inscriptionClient(txtIdentifiant.getText(), String.valueOf(pwdMDP.getPassword()), txtPrenom.getText(), txtNom.getText(), txtAdresse.getText(), txtNumeroTelephone.getText(), txtEmail.getText());
-			JOptionPane.showMessageDialog(this,"L'utilisateur " + txtIdentifiant.getText() + " a bien été inscrit","Confirmation inscription",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this,"L'utilisateur " + txtIdentifiant.getText() + " a bien ete inscrit","Confirmation inscription",JOptionPane.PLAIN_MESSAGE);
 			FenetreInscription.killInstance();
 		}
 

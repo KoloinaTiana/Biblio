@@ -191,7 +191,7 @@ public class FenetreAjoutLivre extends JFrame{
 
         if (allChecked == true) { //si tous les champs sont ok
             Bibliotheque.getInstance().ajoutlivre(txtTitre.getText(), txtAuteur.getText(), jComboBox.getSelectedItem().toString(), txtResume.getText());
-            JOptionPane.showMessageDialog(this,"Le livre " + txtTitre.getText() + " a bien été ajouté","Confirmation ajout livre",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Le livre " + txtTitre.getText() + " a bien ete ajoute","Confirmation ajout livre",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutLivre.killInstance();
         }
     }

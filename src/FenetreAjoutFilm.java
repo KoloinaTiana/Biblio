@@ -181,7 +181,7 @@ public class FenetreAjoutFilm extends JFrame{
 
         if (allChecked == true) { //si tous les champs sont ok
             Bibliotheque.getInstance().ajoutFilm(txtTitre.getText(), txtRealisateur.getText(), y);
-            JOptionPane.showMessageDialog(this,"Le film " + txtTitre.getText() + " a bien été ajouté","Confirmation ajout Film",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Le film " + txtTitre.getText() + " a bien ete ajoute","Confirmation ajout Film",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutFilm.killInstance(); //detruit l'instance de l'ajout de film
         }
     }

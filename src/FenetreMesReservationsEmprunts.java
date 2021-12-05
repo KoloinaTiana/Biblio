@@ -194,7 +194,7 @@ class ButtonEditorRendreLivre extends DefaultCellEditor {
                 try {
                 	Statement stmt = Bibliotheque.getInstance().getConnexion().createStatement();
     				stmt.executeUpdate("UPDATE Livre SET ID_client = NULL, EstDisponible = 1 WHERE ID_livre ='" + table.getValueAt(row, 0) + "';");
-    				JOptionPane.showMessageDialog(new JButton(),"Le livre a bien été rendu");
+    				JOptionPane.showMessageDialog(new JButton(),"Le livre a bien ete rendu");
     				FenetreMesReservationsEmprunts.getInstance().afficherTableauLivre();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(new JButton(),"Erreur livre non disponible");
@@ -257,7 +257,7 @@ class ButtonEditorRendreSalle extends DefaultCellEditor {
                 try {
                 	Statement stmt = Bibliotheque.getInstance().getConnexion().createStatement();
     				stmt.executeUpdate("UPDATE salle SET ID_client = NULL, EstDisponible = 1 WHERE ID_salle ='" + table.getValueAt(row, 0) + "';");
-    				JOptionPane.showMessageDialog(new JButton(),"La salle a bien été rendu");
+    				JOptionPane.showMessageDialog(new JButton(),"La salle a bien ete rendu");
     				FenetreMesReservationsEmprunts.getInstance().afficherTableauSalle();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(new JButton(),"Erreur salle non disponible");

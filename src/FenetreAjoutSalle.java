@@ -238,7 +238,7 @@ public class FenetreAjoutSalle extends JFrame{
                 projecteur = 1; //mettre projecteur à 1 (false)
 
             Bibliotheque.getInstance().ajoutsalle(Integer.parseInt(txtChaise.getText()),Integer.parseInt(txtTable.getText()),projecteur,Integer.parseInt(txtTaille.getText()));
-            JOptionPane.showMessageDialog(this,"La salle a bien été ajouté","Confirmation ajout salle",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this,"La salle a bien ete ajoute","Confirmation ajout salle",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutSalle.killInstance(); //Detruit l'instance
         }
     }

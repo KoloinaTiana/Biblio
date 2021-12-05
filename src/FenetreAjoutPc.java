@@ -66,7 +66,7 @@ public class FenetreAjoutPc extends JFrame{
     //Fin entree marque du pc
 
     //Debut entree numerio de serie
-        JLabel lbSn = new JLabel("Numéro de série : (15 caractères)");
+        JLabel lbSn = new JLabel("Numero de serie : (15 caracteres)");
         lbSn.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbSn.setSize(150, 20);
         lbSn.setLocation(243, 200);
@@ -123,7 +123,7 @@ public class FenetreAjoutPc extends JFrame{
         contentPane.add(lbWarningMissTxt_2);
         lbWarningMissTxt_2.setVisible(false);
 
-        lbWarningErrorTxt = new JLabel("Doit étre inférieur à  15 caractères !");
+        lbWarningErrorTxt = new JLabel("Doit etre inferieur à  15 caracteres !");
         lbWarningErrorTxt.setForeground(Color.RED);
         lbWarningErrorTxt.setFont(new Font("Times New Roman", Font.PLAIN, 10));
         lbWarningErrorTxt.setBounds(243, 261, 105, 20);
@@ -169,7 +169,7 @@ public class FenetreAjoutPc extends JFrame{
 
         if (allChecked == true) { //si les champs sont ok
             Bibliotheque.getInstance().ajoutpc(txtMarque.getText(), txtSn.getText());
-            JOptionPane.showMessageDialog(this,"Le pc " + txtSn.getText() + " a bien été ajouté","Confirmation ajout pc",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Le pc " + txtSn.getText() + " a bien ete ajoute","Confirmation ajout pc",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutPc.killInstance(); //Detruit l'instance
         }
     }

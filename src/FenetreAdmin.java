@@ -35,7 +35,7 @@ public class FenetreAdmin extends JFrame{
 
     //Debut caracteristique de la fenetre
 
-        super("Interface administrateur - B'ook la bibliothéque 2.0");
+        super("Interface administrateur - B'ook la bibliotheque 2.0");
 
         this.admin = _admin;
 
@@ -133,10 +133,6 @@ public class FenetreAdmin extends JFrame{
         lbIdentifiant.setBounds(46, 188, 308, 14);
         contentPane.add(lbIdentifiant);
 
-        JButton btnModifCompte = new JButton("Modifier le compte");
-        btnModifCompte.setBounds(28, 214, 129, 23);
-        contentPane.add(btnModifCompte);
-
         JPanel paneSP = new JPanel();
         paneSP.setBorder(new LineBorder(Color.BLACK, 2));
         paneSP.setBounds(412, 142, 731, 475);
@@ -173,7 +169,7 @@ public class FenetreAdmin extends JFrame{
         paneUtilisateur.add(lblTitre);
 
         //Gestion des utilisateurs
-        JButton btnGerer = new JButton("Gérer");
+        JButton btnGerer = new JButton("Gerer");
         btnGerer.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnGerer.setBounds(77, 100, 164, 46);
         paneUtilisateur.add(btnGerer);

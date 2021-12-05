@@ -41,6 +41,32 @@ public class Bibliotheque{
 
     }
 
+    public String findCode(String mail, int code) throws IncorrectCodeException, SQLException{
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM client WHERE Email ='"+ mail +"' AND Code ="+code);
+            if (res.next()) {
+                return "OK";
+            }else{
+                throw new IncorrectCodeException();
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+
+    }
+
+    public String findMail(String mail) throws MailNotFoundException, SQLException{
+        Compte openClient;
+        openClient = trouverUtilisateurMail(mail);
+        if (openClient == null) {
+            throw new MailNotFoundException();
+        }else{
+            return "OK";
+        }
+
+    }
+
     public void inscriptionClient (String id, String mdp, String prenom, String nom, String adresse, String nTel, String eMail) {
         try {
             Statement stmt = connexion.createStatement();
@@ -51,6 +77,16 @@ public class Bibliotheque{
             e.printStackTrace();
         }
     }
+
+    public void modificationCompte (int id,String ident, String mdp, String prenom, String nom, String adresse, String nTel, String eMail) {
+        try {
+            Statement stmt = connexion.createStatement();
+            stmt.executeUpdate("UPDATE client SET `Identifiant`= '"+ident+"', `Mot de Passe`= '"+mdp+"', `Prenom`= '"+prenom+"', `Nom`= '"+nom+"', `Adresse`= '"+adresse+"', `Numero de telephone`= '"+nTel+"', `Email`= '"+eMail+"' WHERE `ID_client`="+id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Connection databaseConnexion(){
         String url = "jdbc:mysql://localhost:3306/bibliotheque";
         String userName = "root";
@@ -90,6 +126,29 @@ public class Bibliotheque{
             Statement stmt = connexion.createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM client WHERE Identifiant ='"+ id +"'");
             if (res.next()) {
+                System.out.println("Compte Utilisateur trouve");
+                int ID = res.getInt("ID_client");
+                String Identifiant = res.getString("Identifiant");
+                String MDP = res.getString("Mot de Passe");
+                String prenom = res.getString("Prenom");
+                String nom = res.getString("Nom");
+                String adresse = res.getString("Adresse");
+                String numeroTelephone = res.getString("Numero de telephone");
+                String eMail = res.getString("Email");
+                Client client = new Client(ID, Identifiant,MDP,prenom,nom,adresse,numeroTelephone,eMail);
+                return client;
+            }else
+                return null;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public Client trouverUtilisateurMail(String mail) throws SQLException{
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM client WHERE Email ='"+ mail +"'");
+            if (res.next()) {
                 System.out.println("Compte Utilisateur trouvé");
                 int ID = res.getInt("ID_client");
                 String Identifiant = res.getString("Identifiant");
@@ -120,6 +179,19 @@ public class Bibliotheque{
         try {
             Statement stmt = connexion.createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM client WHERE Identifiant ='"+ id +"'");
+            if (res.next()) {
+                return true;
+            }else
+                return false;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public boolean isDifferentUser(int id,String ident) throws SQLException{
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM client WHERE Identifiant ='"+ ident +"' AND ID_client != "+ id);
             if (res.next()) {
                 return true;
             }else
@@ -214,6 +286,15 @@ public class Bibliotheque{
         } catch (SQLException e) {
             System.out.println(e);
             throw new SQLException();
+        }
+    }
+
+    public void newMDP(String m, String password) {
+        try {
+            Statement stmt = connexion.createStatement();
+            stmt.executeUpdate("UPDATE client SET `Mot de Passe`= '"+password+"' WHERE `Email`='"+m+"'");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

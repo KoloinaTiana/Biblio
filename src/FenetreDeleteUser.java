@@ -165,7 +165,7 @@ public class FenetreDeleteUser extends JFrame{
             }
             if (allChecked == true && exist == true) { //si le champ ok et utilisateur existant
                 Bibliotheque.getInstance().deleteUser(txtIdentifiant.getText());
-                JOptionPane.showMessageDialog(this, "Utilisateur " + txtIdentifiant.getText() + " a bien été supprimé", "Confirmation suppression", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Utilisateur " + txtIdentifiant.getText() + " a bien ete supprime", "Confirmation suppression", JOptionPane.PLAIN_MESSAGE);
                 FenetreDeleteUser.killInstance(); //detruit l'instance
             }
     }

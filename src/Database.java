@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    public Connection connexion() throws SQLException {
+    public static Connection connexion() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/bibliotheque";
         String userName = "root";
         String password = "";

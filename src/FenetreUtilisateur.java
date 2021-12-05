@@ -43,7 +43,7 @@ public class FenetreUtilisateur extends JFrame {
     private JTextField txtRechercheLivre;
 
     private FenetreUtilisateur(Client _client) {
-        super("Interface utilisateur - B'ook la bibliothèque 2.0");
+        super("Interface utilisateur - B'ook la bibliotheque 2.0");
 
         this.client = _client;
 
@@ -130,9 +130,9 @@ public class FenetreUtilisateur extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FenetreMesReservationsEmprunts fenetreOublieMDP = FenetreMesReservationsEmprunts.getInstance(client);
-                fenetreOublieMDP.setVisible(true);
-                fenetreOublieMDP.setLocationRelativeTo(contentPane);
+                FenetreMesReservationsEmprunts fenetreEmprunt = FenetreMesReservationsEmprunts.getInstance(client);
+                fenetreEmprunt.setVisible(true);
+                fenetreEmprunt.setLocationRelativeTo(contentPane);
             }
         });
 
@@ -305,6 +305,15 @@ public class FenetreUtilisateur extends JFrame {
         JButton btnModifCompte = new JButton("Modifier le compte");
         btnModifCompte.setBounds(28, 214, 129, 23);
         contentPane.add(btnModifCompte);
+        btnModifCompte.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FenetreModifCompte fenetreModifCompte = FenetreModifCompte.getInstance(client);
+                fenetreModifCompte.setVisible(true);
+                fenetreModifCompte.setLocationRelativeTo(contentPane);
+            }
+        });
 
     }
 
@@ -540,7 +549,7 @@ class ButtonEditorEmprunter extends DefaultCellEditor {
                     Statement stmt = Bibliotheque.getInstance().getConnexion().createStatement();
                     int id = FenetreUtilisateur.getInstance().getClient().getID();
                     stmt.executeUpdate("UPDATE Livre SET ID_client = '" + id + "', EstDisponible = 0 WHERE ID_livre ='" + table.getValueAt(row, 0) + "';");
-                    JOptionPane.showMessageDialog(new JButton(), "Le livre a bien été ajouté à vos emprunts");
+                    JOptionPane.showMessageDialog(new JButton(), "Le livre a bien ete ajoute à vos emprunts");
                     FenetreUtilisateur.getInstance().afficherTableauLivre();
                 } catch (SQLException e1) {
                     JOptionPane.showMessageDialog(new JButton(), "Erreur livre non disponible");

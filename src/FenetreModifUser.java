@@ -287,7 +287,7 @@ public class FenetreModifUser extends JFrame{
 
             if (allChecked == true) { //si tous les champs sont ok
                 Bibliotheque.getInstance().modifUser(txtIdentifiant.getText(), txtNom.getText(), txtPrenom.getText(), txtAdresse.getText(), txtTelephone.getText(), txtEmail.getText());
-                JOptionPane.showMessageDialog(this, "Utilisateur " + txtIdentifiant.getText() + " a bien été modifié", "Confirmation modification", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Utilisateur " + txtIdentifiant.getText() + " a bien ete modifie", "Confirmation modification", JOptionPane.PLAIN_MESSAGE);
                 FenetreModifUser.killInstance(); //Detruit l'instance
             }
         }else{

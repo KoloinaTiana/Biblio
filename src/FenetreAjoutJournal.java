@@ -185,7 +185,7 @@ public class FenetreAjoutJournal extends JFrame{
 
     if (allChecked == true) { //si tous les champs sont ok
             Bibliotheque.getInstance().ajoutJournal(txtEditorial.getText(), txtDate.getText(), txtNom.getText());
-            JOptionPane.showMessageDialog(this,"La Journal " + txtEditorial.getText() + " a bien été ajouté","Confirmation ajout Jourrnal",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this,"La Journal " + txtEditorial.getText() + " a bien ete ajoute","Confirmation ajout Jourrnal",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutJournal.killInstance(); //detruit l'instance de la fentre d'ajout de journal
         }
     }
