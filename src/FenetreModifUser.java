@@ -23,6 +23,9 @@ public class FenetreModifUser extends JFrame{
     private JLabel lbWarningMissTxt_5;
     private JLabel lbWarningUserNotFound;
 
+    /**  initialise la fenetre (design, taille , bouton etc...)
+     * @return  fenetre
+     */
     public FenetreModifUser() {
 
     //Debut caracteristiques de la fenetre
@@ -254,6 +257,11 @@ public class FenetreModifUser extends JFrame{
     }
 
     //Creation de l'instance modification utilisateur
+    
+    /**
+     * Renvoie l'instance de la FenetreModifUser si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreModifUser
+     */
     public static FenetreModifUser getInstance() {
         if( instance == null ) {
             instance = new FenetreModifUser();
@@ -262,6 +270,9 @@ public class FenetreModifUser extends JFrame{
     }
 
     //Destruction de l'instance
+     /**
+     * Supprime l'instance de la FenetreModifUser et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
