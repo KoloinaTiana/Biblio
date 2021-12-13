@@ -47,6 +47,10 @@ public class FenetreUtilisateur extends JFrame {
     private long tmps = 0;
     private JLabel lblAbonnementRestant;
 
+    /**  initialise la fenetre (design, taille , bouton etc...)
+    * @param _client client
+     * @return  fenetre
+     */
     private FenetreUtilisateur(Client _client) throws SQLException, ParseException {
         super("Interface utilisateur - B'ook la bibliotheque 2.0");
 
@@ -479,6 +483,11 @@ public class FenetreUtilisateur extends JFrame {
         return client;
     }
 
+    /**
+     * Renvoie l'instance de la FenetreUtilisateur si elle existe ou en crée une si elle n'existe pas
+     * @param _client client
+     * @return instance du singleton FenetreUtilisateur
+     */
 
     public static FenetreUtilisateur getInstance(Client _client) throws SQLException, ParseException {
         if (instance == null) {
@@ -487,6 +496,11 @@ public class FenetreUtilisateur extends JFrame {
         return instance;
     }
 
+    /**
+     * Renvoie l'instance de la FenetreUtilisateur si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreUtilisateur
+     */
+    
     public static FenetreUtilisateur getInstance() throws Exception {
         if (instance == null) {
             throw new Exception();
@@ -494,6 +508,9 @@ public class FenetreUtilisateur extends JFrame {
         return instance;
     }
 
+    /**
+     * Supprime l'instance de la FenetreAdmin et ferme la fenetre à l'ecran
+     */
 
     public static void killInstance() {
         if (instance != null)
