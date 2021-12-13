@@ -22,6 +22,15 @@ public class Client extends Compte{
         this.reservations = new ArrayList<Reservation>();
     }
 
+    /** Réalise la reservation de pc et salle en date
+     * passé en argument
+     * @param date
+     * @param pcAReserves
+     * @param salleAReservees
+     * date du reservation de pc et salle
+     * @return reservation
+     */
+    
     public void reserver(String date, ArrayList<Pc> pcAReserves, ArrayList<Salle> salleAReservees) {
 
         Reservation newReservation = new Reservation(date,pcAReserves,salleAReservees);
@@ -29,19 +38,38 @@ public class Client extends Compte{
 
     }
 
+    /** affiche l'id 
+     * @return id
+     */
+    
+    
     public int getID() {
         return ID;
     }
 
+    /** affiche l'adresse
+     * @return adresse
+     */
+    
     public String getAdresse() {
         return adresse;
     }
 
+    /** affiche le mail
+     * @return mail
+     */
+    
     public String geteMail() {
         return eMail;
     }
 
+    /** affiche le numero de telephone
+     * @return numerodetelephone
+     */
+    
     public String getNumeroTelephone() {
         return numeroTelephone;
     }
 }
+
+
