@@ -8,9 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -34,6 +36,8 @@ public class FenetreConnexion extends JFrame {
 	private JLabel lbWarningIncorrectPassword;
 
 	private static FenetreConnexion instance;
+	private JCheckBox chckbxSeSouvenir;
+	private String fichier[] = new String[2];
 
 	JPanel contentPane;
 
@@ -85,13 +89,42 @@ public class FenetreConnexion extends JFrame {
 		};
 		btnConnexion.addKeyListener(enterKeyOuvertureCompte);
 
-		txtIdentifiant = new JTextField("Benji4411");
+		try
+		{
+			// Le fichier d'entrée
+			FileInputStream file = new FileInputStream("connexion.txt");
+			Scanner scanner = new Scanner(file);
+
+			int i=0;
+			//renvoie true s'il y a une autre ligne à lire
+			while(scanner.hasNextLine())
+			{
+				fichier[i] = scanner.nextLine();
+				i++;
+			}
+			scanner.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		if(fichier[0] != null){
+			txtIdentifiant = new JTextField(fichier[0]);
+		}else{
+			txtIdentifiant = new JTextField("");
+		}
+		txtIdentifiant = new JTextField(fichier[0]);
 		txtIdentifiant.setBounds(253, 263, 193, 28);
 		contentPane.add(txtIdentifiant);
 		txtIdentifiant.setColumns(10);
 		txtIdentifiant.addKeyListener(enterKeyOuvertureCompte);
 
-		pwdMotDePasse = new JPasswordField("Benji41");
+		if(fichier[1] != null){
+			pwdMotDePasse = new JPasswordField(fichier[1]);
+		}else{
+			pwdMotDePasse = new JPasswordField("");
+		}
 		pwdMotDePasse.setBounds(253, 335, 193, 28);
 		contentPane.add(pwdMotDePasse);
 		pwdMotDePasse.addKeyListener(enterKeyOuvertureCompte);
@@ -168,7 +201,7 @@ public class FenetreConnexion extends JFrame {
 			}
 		});
 
-		JCheckBox chckbxSeSouvenir = new JCheckBox("Se souvenir de moi");
+		chckbxSeSouvenir = new JCheckBox("Se souvenir de moi");
 		chckbxSeSouvenir.setBounds(416, 375, 136, 23);
 		contentPane.add(chckbxSeSouvenir);
 
@@ -196,11 +229,24 @@ public class FenetreConnexion extends JFrame {
 					String.valueOf(pwdMotDePasse.getPassword()));
 			if (c instanceof Client) {
 				System.out.println("Ouverture compte client : " + c.identifiant);
-				FenetreUtilisateur fenetreUtilisateur = FenetreUtilisateur.getInstance((Client)c);
-				fenetreUtilisateur.setVisible(true);
+				FenetreUtilisateur fenetreUtilisateur;
+				try {
+					fenetreUtilisateur = FenetreUtilisateur.getInstance((Client)c);
+					fenetreUtilisateur.setVisible(true);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				FenetreOublieMDP.killInstance();
 				FenetreInscription.killInstance();
 				FenetreConnexion.killInstance();
+				if(chckbxSeSouvenir.isSelected()){
+					PrintWriter writer = new PrintWriter("connexion.txt");
+					writer.println(txtIdentifiant.getText());
+					writer.println(pwdMotDePasse.getPassword());
+					writer.close();
+				}
 			}
 			else {
 				System.out.println("Ouverture compte admin : " + c.identifiant);
@@ -221,6 +267,8 @@ public class FenetreConnexion extends JFrame {
 		}
 		catch (SQLException e3) {
 			System.out.println(e3);;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 

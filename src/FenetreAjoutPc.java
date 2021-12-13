@@ -66,9 +66,9 @@ public class FenetreAjoutPc extends JFrame{
     //Fin entree marque du pc
 
     //Debut entree numerio de serie
-        JLabel lbSn = new JLabel("Numero de serie : (15 caracteres)");
+        JLabel lbSn = new JLabel("Numero de serie :");
         lbSn.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        lbSn.setSize(150, 20);
+        lbSn.setSize(300, 20);
         lbSn.setLocation(243, 200);
         contentPane.add(lbSn);
 
@@ -123,7 +123,7 @@ public class FenetreAjoutPc extends JFrame{
         contentPane.add(lbWarningMissTxt_2);
         lbWarningMissTxt_2.setVisible(false);
 
-        lbWarningErrorTxt = new JLabel("Doit etre inferieur à  15 caracteres !");
+        lbWarningErrorTxt = new JLabel("Doit etre inferieur a  15 caracteres !");
         lbWarningErrorTxt.setForeground(Color.RED);
         lbWarningErrorTxt.setFont(new Font("Times New Roman", Font.PLAIN, 10));
         lbWarningErrorTxt.setBounds(243, 261, 105, 20);

@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
 	    private static FenetreInfoLivre instance;
 
 	    public FenetreInfoLivre(String titre, String auteur, String resume, String sujet) {
-	    	super("Info livre - B'ook la bibliothèque 2.0");
+	    	super("Info livre - B'ook la bibliotheque 2.0");
 			
 	    	this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 			this.addWindowListener(new WindowAdapter(){

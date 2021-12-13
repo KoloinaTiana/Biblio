@@ -5,7 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Year;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
+
 public class Bibliotheque{
 
     private static Bibliotheque instance;
@@ -49,6 +50,21 @@ public class Bibliotheque{
                 return "OK";
             }else{
                 throw new IncorrectCodeException();
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+
+    }
+
+    public String hasSubscribed(int id) throws SQLException{
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM abonnement WHERE ID_client ="+id);
+            if (res.next()) {
+                return "OK";
+            }else{
+                return "KO";
             }
         } catch (SQLException e) {
             throw e;
@@ -209,6 +225,28 @@ public class Bibliotheque{
             int nbMaj = stmt.executeUpdate(requete);
             System.out.println(nbMaj + "salle ajoutÃ©e");
         } catch (SQLException e) {
+            throw new SQLException();
+        }
+    }
+
+    public String[] abonnementInfo(int id) throws SQLException {
+        String requete = "SELECT * FROM `abonnement` WHERE `ID_client` = "+ id;
+
+        try {
+            Statement stmt = connexion.createStatement();
+            ResultSet res = stmt.executeQuery(requete);
+            if (res.next()) {
+                int ID = res.getInt("ID_abonnement");
+                Date debut = res.getDate("Date_debut");
+                Date fin = res.getDate("Date_fin");
+                int ID_client = res.getInt("ID_client");
+                String subscribe[] = {String.valueOf(ID), String.valueOf(debut), String.valueOf(fin), String.valueOf(ID_client)};
+                System.out.println(subscribe);
+                return subscribe;
+            }else
+                return null;
+        } catch (SQLException e) {
+            System.out.println(e);
             throw new SQLException();
         }
     }

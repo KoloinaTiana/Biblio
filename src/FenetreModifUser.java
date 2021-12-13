@@ -62,7 +62,7 @@ public class FenetreModifUser extends JFrame{
     //Fin caracteristiques de la fenetre
 
     //Debut entree identifiant
-        JLabel lbIdentifiant = new JLabel("Identifiant du client à modifier :");
+        JLabel lbIdentifiant = new JLabel("Identifiant du client a modifier :");
         lbIdentifiant.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbIdentifiant.setBounds(38, 50, 250, 20);
         contentPane.add(lbIdentifiant);
@@ -172,7 +172,7 @@ public class FenetreModifUser extends JFrame{
     //Fin des boutons
 
     //Debut messages d'erreur
-        lbWarningMissTxt_0 = new JLabel("Choisir un client à modifier !");
+        lbWarningMissTxt_0 = new JLabel("Choisir un client a modifier !");
         lbWarningMissTxt_0.setForeground(Color.RED);
         lbWarningMissTxt_0.setFont(new Font("Times New Roman", Font.PLAIN, 10));
         lbWarningMissTxt_0.setBounds(350, 78, 115, 20);

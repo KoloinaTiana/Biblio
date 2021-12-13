@@ -84,10 +84,10 @@ public class FenetreOublieMDP extends JFrame {
         getContentPane().add(lbWarningMissingText);
         lbWarningMissingText.setVisible(false);
 
-        lbWarningMailNotFound = new JLabel("Aucun compte associe a ce mail");
+        lbWarningMailNotFound = new JLabel("Aucun compte associe a cette adresse email");
         lbWarningMailNotFound.setForeground(Color.RED);
         lbWarningMailNotFound.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-        lbWarningMailNotFound.setBounds(198, 280, 250, 30);
+        lbWarningMailNotFound.setBounds(198, 280, 300, 30);
         getContentPane().add(lbWarningMailNotFound);
         lbWarningMailNotFound.setVisible(false);
     }
@@ -158,7 +158,7 @@ public class FenetreOublieMDP extends JFrame {
             String to = txtEmail.getText();
 
             // Sender's email ID needs to be mentioned
-            String from = "book@gmail.com";
+            String from = "book.biblio.project@gmail.com";
 
             // Assuming you are sending email from localhost
             String host = "smtp.gmail.com";
@@ -177,7 +177,7 @@ public class FenetreOublieMDP extends JFrame {
 
                 protected PasswordAuthentication getPasswordAuthentication() {
 
-                    return new PasswordAuthentication("koloinarasolofoson6@gmail.com", "KoloinaTiana6");
+                    return new PasswordAuthentication("book.biblio.project@gmail.com", "Book2021");
 
                 }
 

@@ -53,7 +53,7 @@ public class FenetreDeleteUser extends JFrame{
     //Fin caracteristiques de la fenetre
 
     //Debut entree
-        JLabel lbIdentifiant = new JLabel("Identifiant du client à supprimer :");
+        JLabel lbIdentifiant = new JLabel("Identifiant du client a supprimer :");
         lbIdentifiant.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lbIdentifiant.setBounds(220, 150, 280, 20);
         contentPane.add(lbIdentifiant);
@@ -95,7 +95,7 @@ public class FenetreDeleteUser extends JFrame{
 
     //Debut messages d'erreur
 
-        lbWarningMissTxt_0 = new JLabel("Choisir un client à supprimer !");
+        lbWarningMissTxt_0 = new JLabel("Choisir un client a supprimer !");
         lbWarningMissTxt_0.setForeground(Color.RED);
         lbWarningMissTxt_0.setFont(new Font("Times New Roman", Font.PLAIN, 10));
         lbWarningMissTxt_0.setBounds(220, 280, 280, 20);

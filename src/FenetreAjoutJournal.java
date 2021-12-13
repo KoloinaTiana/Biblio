@@ -1,11 +1,12 @@
 
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class FenetreAjoutJournal extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
@@ -13,8 +14,8 @@ public class FenetreAjoutJournal extends JFrame{
     private static FenetreAjoutJournal instance;
 
     private JTextField txtEditorial;
-    private JTextField txtDate;
     private JTextField txtNom;
+    private JDateChooser chooser;
 
     private JLabel lbWarningMissTxt_1;
     private JLabel lbWarningMissTxt_2;
@@ -78,10 +79,11 @@ public class FenetreAjoutJournal extends JFrame{
         lbDate.setLocation(243, 100);
         contentPane.add(lbDate);
 
-        txtDate = new JTextField("YYYY-MM-DD");
-        txtDate.setBounds(243, 130, 193, 28);
-        getContentPane().add(txtDate);
-        txtDate.setColumns(10);
+
+        chooser = new JDateChooser();
+        chooser.setLocale(Locale.FRANCE);
+        chooser.setBounds(243, 130, 193, 28);
+        getContentPane().add(chooser);
     //Fin entree date du journal
 
     //Debut entree nom du journal
@@ -167,8 +169,8 @@ public class FenetreAjoutJournal extends JFrame{
 
     //Verification des champs d'entrees et appel de l'insertion du journal dans la bdd
     private void actionAjoutJournal() throws SQLException {
-        JTextField[] txtFields = {txtEditorial,txtDate,txtNom};
-        JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2,lbWarningMissTxt_3};
+        JTextField[] txtFields = {txtEditorial,txtNom};
+        JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_3};
         boolean allChecked = true;
 
         for(int i = 0; i<txtFields.length; i++) {
@@ -177,14 +179,20 @@ public class FenetreAjoutJournal extends JFrame{
                 allChecked = false;
             }else {
                 warningsMissTxts[i].setVisible(false);
-                if (txtFields[1].getText().equals("YYYY-MM-DD")) { //verifie si le champ date est sa valeur initiale
-                    warningsMissTxts[1].setVisible(true); //affiche le message d'erreur
-                }
             }
         }
 
+        if(chooser.getDate() == null){
+            lbWarningMissTxt_2.setVisible(true);
+            allChecked = false;
+        }else{
+            lbWarningMissTxt_2.setVisible(false);
+        }
+
     if (allChecked == true) { //si tous les champs sont ok
-            Bibliotheque.getInstance().ajoutJournal(txtEditorial.getText(), txtDate.getText(), txtNom.getText());
+            SimpleDateFormat tdate = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println(tdate.format(chooser.getDate()));
+            Bibliotheque.getInstance().ajoutJournal(txtEditorial.getText(), tdate.format(chooser.getDate()), txtNom.getText());
             JOptionPane.showMessageDialog(this,"La Journal " + txtEditorial.getText() + " a bien ete ajoute","Confirmation ajout Jourrnal",JOptionPane.PLAIN_MESSAGE);
             FenetreAjoutJournal.killInstance(); //detruit l'instance de la fentre d'ajout de journal
         }

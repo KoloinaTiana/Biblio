@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -12,6 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
@@ -41,8 +44,10 @@ public class FenetreUtilisateur extends JFrame {
     private JTable tableSalle;
     private JTable tablePc;
     private JTextField txtRechercheLivre;
+    private long tmps = 0;
+    private JLabel lblAbonnementRestant;
 
-    private FenetreUtilisateur(Client _client) {
+    private FenetreUtilisateur(Client _client) throws SQLException, ParseException {
         super("Interface utilisateur - B'ook la bibliotheque 2.0");
 
         this.client = _client;
@@ -144,16 +149,6 @@ public class FenetreUtilisateur extends JFrame {
         paneEmprunt.setLayout(null);
         paneEmprunt.setVisible(false);
 
-        JButton btnLivre = new JButton("Livre");
-        btnLivre.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnLivre.setBounds(54, 11, 273, 46);
-        paneEmprunt.add(btnLivre);
-
-        JButton btnAutreDocument = new JButton("Autre document");
-        btnAutreDocument.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        btnAutreDocument.setBounds(407, 11, 273, 46);
-        paneEmprunt.add(btnAutreDocument);
-
         txtRechercheLivre = new JTextField();
         txtRechercheLivre.setBounds(150, 150, 141, 35);
         paneEmprunt.add(txtRechercheLivre);
@@ -219,7 +214,7 @@ public class FenetreUtilisateur extends JFrame {
         afficherTableauSalle();
 
         tablePc = new JTable();
-        tablePc.setBounds(150, 80, 448, 322);
+        tablePc.setBounds(0, 0, 448, 322);
         JScrollPane scrollPanePc = new JScrollPane(tablePc);
         panePc.add(scrollPanePc);
         scrollPanePc.setBounds(150, 80, 448, 245);
@@ -244,7 +239,9 @@ public class FenetreUtilisateur extends JFrame {
         contentPane.add(paneAbonnement);
         paneAbonnement.setLayout(null);
 
-        JLabel lblAbonnementRestant = new JLabel("Temps d'abonnement restant : 19 jours");
+        majAbonnement(client.getID());
+
+        lblAbonnementRestant = new JLabel("Temps d'abonnement restant : " + tmps +"jours");
         lblAbonnementRestant.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         lblAbonnementRestant.setBounds(10, 31, 306, 24);
         paneAbonnement.add(lblAbonnementRestant);
@@ -271,6 +268,13 @@ public class FenetreUtilisateur extends JFrame {
         btnRechargerAbonnement.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         btnRechargerAbonnement.setBounds(77, 100, 164, 46);
         paneAbonnement.add(btnRechargerAbonnement);
+        btnRechargerAbonnement.addActionListener(e -> {
+            try {
+                rechargerAbonnement(client.getID());
+            } catch (SQLException | ParseException throwables) {
+                throwables.printStackTrace();
+            }
+        });
 
         JButton btnReserver = new JButton("Reserver une salle ou un pc");
         btnReserver.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -317,28 +321,88 @@ public class FenetreUtilisateur extends JFrame {
 
     }
 
+    private void rechargerAbonnement(int id) throws SQLException, ParseException {
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.MONTH, 1);
+        Date dtt = c.getTime();
+        String z = Bibliotheque.getInstance().hasSubscribed(id);
+        if (z == "OK") {
+            PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("UPDATE `abonnement` SET `Date_debut` ='" + sdf.format(dt) + "',`Date_fin`='" + sdf.format(dtt) +"' WHERE `ID_client`="+id);
+            int nb = ps.executeUpdate();
+            System.out.println(nb);
+            JOptionPane.showMessageDialog(this,"Rechargement reussi","Confirmation recharge",JOptionPane.PLAIN_MESSAGE);
+            lblAbonnementRestant = new JLabel("Temps d'abonnement restant : " + tmps +"jours");
+            majAbonnement(client.getID());
+        } else {
+            PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("INSERT INTO `abonnement` (`ID_client`, `Date_debut`, `Date_fin`) VALUES ("+id+",'"+sdf.format(dt)+"','"+ sdf.format(dtt)+"')");
+            int nb = ps.executeUpdate();
+            System.out.println(nb);
+            JOptionPane.showMessageDialog(this,"Rechargement reussi","Confirmation recharge",JOptionPane.PLAIN_MESSAGE);
+            lblAbonnementRestant = new JLabel("Temps d'abonnement restant : " + tmps +"jours");
+            majAbonnement(client.getID());
+        }
+    }
+
+    private void majAbonnement(int id) throws ParseException, SQLException {
+        String sub[] = Bibliotheque.getInstance().abonnementInfo(id);
+        if (sub == null) { //pas d'abonnement
+            tmps = 0;
+            System.out.println("pas d'abonnement");
+        }else{
+            Date firstDate = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.parse(sdf.format(firstDate));
+            Date secondDate = sdf.parse(sub[2]);
+            if (firstDate.getTime() > secondDate.getTime()) {
+                tmps = 0;
+                lblAbonnementRestant = new JLabel("Temps d'abonnement restant : " + tmps +"jours");
+                System.out.println("pas d'abonnement");
+            }else{
+                long diff = secondDate.getTime() - firstDate.getTime();
+                TimeUnit time = TimeUnit.DAYS;
+                tmps = time.convert(diff, TimeUnit.MILLISECONDS);
+                lblAbonnementRestant = new JLabel("Temps d'abonnement restant : " + tmps +"jours");
+            }
+
+        }
+    }
+
 
     public void afficherTableauLivre() {
 
         try {
             PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("SELECT ID_Livre, Titre, Auteur, Sujet FROM livre WHERE Titre LIKE '%" + txtRechercheLivre.getText() + "%' AND EstDisponible = 1");
             ResultSet rs = ps.executeQuery();
-            tableLivre.setModel(DbUtils.resultSetToTableModel(rs));
-            DefaultTableModel model = (DefaultTableModel) tableLivre.getModel();
-            model.addColumn("Info");
-            model.addColumn("Emprunter");
-            tableLivre.setRowHeight(30);
-            tableLivre.getColumnModel().getColumn(0).setHeaderValue("ID");
-            tableLivre.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tableLivre.getColumnModel().getColumn(1).setPreferredWidth(250);
-            tableLivre.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tableLivre.getColumnModel().getColumn(3).setPreferredWidth(65);
-            tableLivre.getColumnModel().getColumn(4).setPreferredWidth(48);
-            tableLivre.getColumnModel().getColumn(5).setPreferredWidth(114);
-            tableLivre.getColumn("Info").setCellRenderer(new ButtonRendererInfo());
-            tableLivre.getColumn("Info").setCellEditor(new ButtonEditorInfo());
-            tableLivre.getColumn("Emprunter").setCellRenderer(new ButtonRendererEmprunter());
-            tableLivre.getColumn("Emprunter").setCellEditor(new ButtonEditorEmprunter());
+            int size = 0;
+            rs.last();
+            size = rs.getRow();
+            rs.beforeFirst();
+            if (size > 0) {
+                tableLivre.setModel(DbUtils.resultSetToTableModel(rs));
+                DefaultTableModel model = (DefaultTableModel) tableLivre.getModel();
+                model.addColumn("Info");
+                model.addColumn("Emprunter");
+                tableLivre.setRowHeight(30);
+                tableLivre.getColumnModel().getColumn(0).setHeaderValue("ID");
+                tableLivre.getColumnModel().getColumn(0).setPreferredWidth(40);
+                tableLivre.getColumnModel().getColumn(1).setPreferredWidth(250);
+                tableLivre.getColumnModel().getColumn(2).setPreferredWidth(120);
+                tableLivre.getColumnModel().getColumn(3).setPreferredWidth(65);
+                tableLivre.getColumnModel().getColumn(4).setPreferredWidth(48);
+                tableLivre.getColumnModel().getColumn(5).setPreferredWidth(114);
+                tableLivre.getColumn("Info").setCellRenderer(new ButtonRendererInfo());
+                tableLivre.getColumn("Info").setCellEditor(new ButtonEditorInfo());
+                tableLivre.getColumn("Emprunter").setCellRenderer(new ButtonRendererEmprunter());
+                tableLivre.getColumn("Emprunter").setCellEditor(new ButtonEditorEmprunter());
+            }else{
+                tableLivre.setModel(DbUtils.resultSetToTableModel(rs));
+                tableLivre.getColumnModel().getColumn(0).setHeaderValue("ID");
+                DefaultTableModel model = (DefaultTableModel) tableLivre.getModel();
+                model.addRow(new Object[]{"Aucun resultat"});
+            }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -398,8 +462,8 @@ public class FenetreUtilisateur extends JFrame {
                 tablePc.getColumnModel().getColumn(1).setPreferredWidth(100);
                 tablePc.getColumnModel().getColumn(2).setPreferredWidth(150);
                 tablePc.getColumnModel().getColumn(2).setPreferredWidth(114);
-                tablePc.getColumn("Reserver").setCellRenderer(new ButtonRendererReserver());
-                tablePc.getColumn("Reserver").setCellEditor(new ButtonEditorReserver());
+                tablePc.getColumn("Reserver").setCellRenderer(new ButtonRendererPC());
+                tablePc.getColumn("Reserver").setCellEditor(new ButtonEditorPC());
             }else{
                 tablePc.setModel(DbUtils.resultSetToTableModel(rs));
                 tablePc.getColumnModel().getColumn(0).setHeaderValue("ID");
@@ -416,7 +480,7 @@ public class FenetreUtilisateur extends JFrame {
     }
 
 
-    public static FenetreUtilisateur getInstance(Client _client) {
+    public static FenetreUtilisateur getInstance(Client _client) throws SQLException, ParseException {
         if (instance == null) {
             instance = new FenetreUtilisateur(_client);
         }
@@ -549,7 +613,7 @@ class ButtonEditorEmprunter extends DefaultCellEditor {
                     Statement stmt = Bibliotheque.getInstance().getConnexion().createStatement();
                     int id = FenetreUtilisateur.getInstance().getClient().getID();
                     stmt.executeUpdate("UPDATE Livre SET ID_client = '" + id + "', EstDisponible = 0 WHERE ID_livre ='" + table.getValueAt(row, 0) + "';");
-                    JOptionPane.showMessageDialog(new JButton(), "Le livre a bien ete ajoute à vos emprunts");
+                    JOptionPane.showMessageDialog(new JButton(), "Le livre a bien ete ajoute a vos emprunts");
                     FenetreUtilisateur.getInstance().afficherTableauLivre();
                 } catch (SQLException e1) {
                     JOptionPane.showMessageDialog(new JButton(), "Erreur livre non disponible");
@@ -631,6 +695,69 @@ class ButtonEditorReserver extends DefaultCellEditor {
             }
         });
         table.getColumn("Reserver").setCellEditor(new ButtonEditorReserver());
+        return button;
+
+    }
+}
+
+class ButtonRendererPC extends JButton implements TableCellRenderer {
+
+    private static final long serialVersionUID = -3515681451726103450L;
+
+    public ButtonRendererPC() {
+        setOpaque(true);
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+                                                   boolean isSelected, boolean hasFocus, int row, int column) {
+        setText("Reserver");
+        return this;
+    }
+}
+
+class ButtonEditorPC extends DefaultCellEditor {
+
+    private static final long serialVersionUID = 6420764142408657226L;
+
+    protected JButton button;
+
+    public ButtonEditorPC() {
+        super(new JCheckBox());
+        button = new JButton();
+        button.setOpaque(true);
+    }
+
+    @Override
+    public Component getTableCellEditorComponent(JTable table, Object value,
+                                                 boolean isSelected, int row, int column) {
+        button.setText("Reserver");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("row :" + row + " column : " + column);
+                try {
+                    Statement stmt = Bibliotheque.getInstance().getConnexion().createStatement();
+                    int id = FenetreUtilisateur.getInstance().getClient().getID();
+                    stmt.executeUpdate("UPDATE pc SET ID_client = '" + id + "', EstDisponible = 0 WHERE ID_pc ='" + table.getValueAt(row, 0) + "';");
+                    JOptionPane.showMessageDialog(new JButton(), "Le pc a bien ete reserve");
+                    FenetreUtilisateur.getInstance().afficherTableauPc();
+                } catch (SQLException e1) {
+                    JOptionPane.showMessageDialog(new JButton(), "Erreur pc non disponible");
+                    try {
+                        FenetreUtilisateur.getInstance().afficherTableauPc();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
+                    }
+                    e1.printStackTrace();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+            }
+        });
+        table.getColumn("Reserver").setCellEditor(new ButtonEditorPC());
         return button;
 
     }

@@ -31,7 +31,7 @@ public class FenetreInscription extends JFrame{
 
 
 	private FenetreInscription() {
-		super("Inscription - B'ook la bibliothèque 2.0");
+		super("Inscription - B'ook la bibliotheque 2.0");
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter(){
 			@Override
@@ -161,49 +161,49 @@ public class FenetreInscription extends JFrame{
 		separator_1.setBounds(0, 385, 600, 20);
 		contentPane.add(separator_1);
 
-		lbWarningMissTxt_1 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_1 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_1.setForeground(Color.RED);
 		lbWarningMissTxt_1.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_1.setBounds(195, 122, 105, 20);
 		contentPane.add(lbWarningMissTxt_1);
 		lbWarningMissTxt_1.setVisible(false);
 
-		lbWarningMissTxt_2 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_2 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_2.setForeground(Color.RED);
 		lbWarningMissTxt_2.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_2.setBounds(175, 162, 105, 20);
 		contentPane.add(lbWarningMissTxt_2);
 		lbWarningMissTxt_2.setVisible(false);
 
-		lbWarningMissTxt_3 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_3 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_3.setForeground(Color.RED);
 		lbWarningMissTxt_3.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_3.setBounds(377, 162, 105, 20);
 		contentPane.add(lbWarningMissTxt_3);
 		lbWarningMissTxt_3.setVisible(false);
 
-		lbWarningMissTxt_4 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_4 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_4.setForeground(Color.RED);
 		lbWarningMissTxt_4.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_4.setBounds(180, 202, 105, 20);
 		contentPane.add(lbWarningMissTxt_4);
 		lbWarningMissTxt_4.setVisible(false);
 
-		lbWarningMissTxt_5 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_5 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_5.setForeground(Color.RED);
 		lbWarningMissTxt_5.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_5.setBounds(285, 242, 105, 20);
 		contentPane.add(lbWarningMissTxt_5);
 		lbWarningMissTxt_5.setVisible(false);
 
-		lbWarningMissTxt_6 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_6 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_6.setForeground(Color.RED);
 		lbWarningMissTxt_6.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_6.setBounds(167, 282, 105, 20);
 		contentPane.add(lbWarningMissTxt_6);
 		lbWarningMissTxt_6.setVisible(false);
 
-		lbWarningMissTxt_7 = new JLabel("Ce champ doit être rempli");
+		lbWarningMissTxt_7 = new JLabel("Ce champ doit etre rempli");
 		lbWarningMissTxt_7.setForeground(Color.RED);
 		lbWarningMissTxt_7.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningMissTxt_7.setBounds(217, 322, 105, 20);
@@ -217,7 +217,7 @@ public class FenetreInscription extends JFrame{
 		contentPane.add(lbWarningMDPconfirm);
 		lbWarningMDPconfirm.setVisible(false);
 
-		lbWarningUserExist = new JLabel("Cette utilisateur existe deja");
+		lbWarningUserExist = new JLabel("Cet utilisateur existe deja");
 		lbWarningUserExist.setForeground(Color.RED);
 		lbWarningUserExist.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		lbWarningUserExist.setBounds(195, 122, 109, 20);

@@ -38,8 +38,8 @@ public class FenetreNewMDP extends JFrame{
         contentPane.setLayout(null);
 
         JLabel lblOublieMDP = new JLabel("NOUVEAU MOT DE PASSE");
-        lblOublieMDP.setFont(new Font("Times New Roman", Font.BOLD, 40));
-        lblOublieMDP.setBounds(68, 32, 464, 47);
+        lblOublieMDP.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        lblOublieMDP.setBounds(68, 32, 500, 47);
         getContentPane().add(lblOublieMDP);
 
         JLabel lbCode = new JLabel("Code de verification :");
@@ -164,33 +164,33 @@ public class FenetreNewMDP extends JFrame{
                 allChecked = false;
             }else {
                 warningsMissTxts[i].setVisible(false);
-            }
-        }
-
-        if(!String.valueOf(pwdNouveauMDP.getPassword()).equals(String.valueOf(pwdNouveauMDPComfirm.getPassword()))) {
-            lbWarningMDPconfirm.setVisible(true);
-            allChecked = false;
-        }else {
-            lbWarningMDPconfirm.setVisible(false);
-            if(CodeVerif.getText().length() > 0) {
-                try {
-                    String c = Bibliotheque.getInstance().findCode(this.m, Integer.parseInt(CodeVerif.getText()));
-                    if (c == "OK") {
-                        lbWarningIncorrectCode.setVisible(false);
-                        allChecked = true;
-                    } else {
-                        lbWarningIncorrectCode.setVisible(true);
-                        allChecked = false;
+                if(!String.valueOf(pwdNouveauMDP.getPassword()).equals(String.valueOf(pwdNouveauMDPComfirm.getPassword()))) {
+                    lbWarningMDPconfirm.setVisible(true);
+                    allChecked = false;
+                }else {
+                    lbWarningMDPconfirm.setVisible(false);
+                    if(CodeVerif.getText().length() > 0) {
+                        try {
+                            String c = Bibliotheque.getInstance().findCode(this.m, Integer.parseInt(CodeVerif.getText()));
+                            if (c == "OK") {
+                                lbWarningIncorrectCode.setVisible(false);
+                                allChecked = true;
+                            } else {
+                                lbWarningIncorrectCode.setVisible(true);
+                                allChecked = false;
+                            }
+                        } catch (IncorrectCodeException e) {
+                            lbWarningIncorrectCode.setVisible(true);
+                            throw new IncorrectCodeException();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
                     }
-                } catch (IncorrectCodeException e) {
-                    lbWarningIncorrectCode.setVisible(true);
-                    throw new IncorrectCodeException();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+
                 }
             }
-
         }
+
 
         if (allChecked == true) {
             Bibliotheque.getInstance().newMDP(this.m, String.valueOf(pwdNouveauMDP.getPassword()));
