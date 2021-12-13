@@ -22,6 +22,10 @@ public class FenetreModifCompte extends JFrame {
     private JTextField txtEmail;
     private JLabel lbWarningMissTxt_1, lbWarningMissTxt_2, lbWarningMissTxt_3, lbWarningMissTxt_4,lbWarningMissTxt_5,lbWarningMissTxt_6,lbWarningMissTxt_7,lbWarningMDPconfirm,lbWarningUserExist;
 
+    /**  initialise la fenetre (design, taille , bouton etc...)
+     * @param _client client
+     * @return  fenetre
+     */
     private FenetreModifCompte(Client _client) {
         super("Interface modification compte- B'ook la bibliothèque 2.0");
 
@@ -237,6 +241,11 @@ public class FenetreModifCompte extends JFrame {
 
     }
 
+      /**
+     * Renvoie l'instance de la FenetreModifCompte si elle existe ou en crée une si elle n'existe pas
+     * @param _client client
+     * @return instance du singleton FenetreModifCompte
+     */
     public static FenetreModifCompte getInstance(Client _client) {
         if( instance == null ) {
             instance = new FenetreModifCompte(_client);
@@ -244,6 +253,10 @@ public class FenetreModifCompte extends JFrame {
         return instance;
     }
 
+      /**
+     * Renvoie l'instance de la FenetreModifCompte si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreModifCompte
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
