@@ -18,6 +18,11 @@ public class FenetreNewMDP extends JFrame{
 
     private String m;
 
+    /**  initialise la fenetre (design, taille , bouton etc...)
+    * @param _m mot de passe
+     * @return  fenetre
+     */
+    
     private FenetreNewMDP(String _m) {
         super("Nouveau mot de passe - B'ook la bibliotheque 2.0");
         this.m = _m;
@@ -133,6 +138,11 @@ public class FenetreNewMDP extends JFrame{
             }
         });
     }
+     /**
+     * Renvoie l'instance de la FenetreNewMDP si elle existe ou en crée une si elle n'existe pas
+     * @param m mot de passe
+     * @return instance du singleton FenetreNewMDP
+     */
 
     public static FenetreNewMDP getInstance(String m) {
 
@@ -142,6 +152,9 @@ public class FenetreNewMDP extends JFrame{
         return instance;
     }
 
+    /**
+     * Supprime l'instance de la FenetreNewMdp et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);

@@ -25,9 +25,11 @@ public class Client extends Compte{
     /** Réalise la reservation de pc et salle en date
      * passé en argument
      * @param date
+     * date de reservation
      * @param pcAReserves
+     * PC à réserver
      * @param salleAReservees
-     * date du reservation de pc et salle
+     * Salle à réserver
      * @return reservation
      */
     

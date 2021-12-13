@@ -7,6 +7,13 @@ public class Salle {
 	private double superficie;
 	private boolean estReserve;
 
+	/**
+	 * Constructeur de la classe Salle
+	 * @param _nbChaises
+	 * @param _nbTables
+	 * @param _vProjecteur
+	 * @param _superficie
+	 */
 	public Salle(int _nbChaises, int _nbTables, boolean _vProjecteur, double _superficie) {
 
 		this.nbChaises = _nbChaises;
@@ -17,6 +24,10 @@ public class Salle {
 
 	}
 
+	/**
+	 * change la valeur de la boolean estReserve
+	 * @param estReserve indique si la salle est reservé
+	 */
 	public void setEstReserve(boolean estReserve) {
 		this.estReserve = estReserve;
 	}
