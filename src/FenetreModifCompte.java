@@ -23,7 +23,7 @@ public class FenetreModifCompte extends JFrame {
     private JLabel lbWarningMissTxt_1, lbWarningMissTxt_2, lbWarningMissTxt_3, lbWarningMissTxt_4,lbWarningMissTxt_5,lbWarningMissTxt_6,lbWarningMissTxt_7,lbWarningMDPconfirm,lbWarningUserExist;
 
     private FenetreModifCompte(Client _client) {
-        super("Interface modification compte- B'ook la bibliothèque 2.0");
+        super("Interface modification compte- B'ook la bibliotheque 2.0");
 
         this.client = _client;
 

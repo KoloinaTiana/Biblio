@@ -370,6 +370,10 @@ public class FenetreUtilisateur extends JFrame {
         }
     }
 
+    public long getTmps() {
+        return tmps;
+    }
+
 
     public void afficherTableauLivre() {
 
@@ -605,6 +609,13 @@ class ButtonEditorEmprunter extends DefaultCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {
         button.setText("Emprunter");
+        try {
+            if(FenetreUtilisateur.getInstance().getTmps() == 0)
+                button.setEnabled(false);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -669,6 +680,13 @@ class ButtonEditorReserver extends DefaultCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {
         button.setText("Reserver");
+        try {
+            if(FenetreUtilisateur.getInstance().getTmps() == 0)
+                button.setEnabled(false);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -732,6 +750,13 @@ class ButtonEditorPC extends DefaultCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {
         button.setText("Reserver");
+        try {
+            if(FenetreUtilisateur.getInstance().getTmps() == 0)
+                button.setEnabled(false);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
