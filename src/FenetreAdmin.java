@@ -33,6 +33,7 @@ public class FenetreAdmin extends JFrame{
 
     
     /**  initialise la fenetre (design, taille , bouton etc...)
+    * @param _admin admin
      * @return  fenetre
      */
     
