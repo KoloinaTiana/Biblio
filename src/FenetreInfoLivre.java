@@ -14,6 +14,14 @@ import javax.swing.JTextArea;
 
 	    private static FenetreInfoLivre instance;
 
+		
+            /**  initialise la fenetre (design, taille , bouton etc...)
+	      * @param titre titre
+	      * @param auteur auteur
+	      * @param resume resume
+	      * @param sujet sujet
+              * @return  fenetre
+              */
 	    public FenetreInfoLivre(String titre, String auteur, String resume, String sujet) {
 	    	super("Info livre - B'ook la bibliotheque 2.0");
 			
@@ -25,7 +33,7 @@ import javax.swing.JTextArea;
 			    	dispose();
 			    }
 			});
-			this.setResizable(false);// emp�che toutes modifications de la taille de la fen�tre
+			this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre
 
 			// centralise la fenetre et definit sa taille
 			this.setSize(500, 500);
@@ -88,6 +96,13 @@ import javax.swing.JTextArea;
 		}
 	    
 
+		/** Renvoie l'instance de la FenetreInfoLivre si elle existe ou en crée une si elle n'existe pas
+	      * @param titre titre
+	      * @param auteur auteur
+	      * @param resume resume
+	      * @param sujet sujet
+              * @return  instance du singleton FenetreConnexion
+              */
 	    public static FenetreInfoLivre getInstance(String titre, String Auteur, String Resume, String Sujet) {
 	        if( instance == null ) {
 	            instance = new FenetreInfoLivre(titre, Auteur, Resume, Sujet);
@@ -95,6 +110,9 @@ import javax.swing.JTextArea;
 	        return instance;
 	    }
 
+		/**
+                * Supprime l'instance de la FenetreInfoLivre et ferme la fenetre à l'ecran
+                 */
 	    public static void killInstance() {
 	        if (instance != null)
 	            instance.setVisible(false);
