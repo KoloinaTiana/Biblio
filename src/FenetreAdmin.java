@@ -31,6 +31,11 @@ public class FenetreAdmin extends JFrame{
     JTable table;
     private JTextField txtRecherche;
 
+    
+    /**  initialise la fenetre (design, taille , bouton etc...)
+     * @return  fenetre
+     */
+    
     private FenetreAdmin(Admin _admin) {
 
     //Debut caracteristique de la fenetre
@@ -358,6 +363,11 @@ public class FenetreAdmin extends JFrame{
     }
 
     //Creation instance Admin
+    /**
+     * Renvoie l'instance de la FenetreAdmin si elle existe ou en crée une si elle n'existe pas
+     * @param _admin admin
+     * @return instance du singleton FenetreAdmin
+     */
     public static FenetreAdmin getInstance(Admin _admin) {
         if( instance == null ) {
             instance = new FenetreAdmin(_admin);
@@ -366,6 +376,9 @@ public class FenetreAdmin extends JFrame{
     }
 
     //Destruction de l'instance
+    /**
+     * Supprime l'instance de la FenetreAdmin et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
