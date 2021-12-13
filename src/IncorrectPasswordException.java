@@ -7,6 +7,10 @@ public class IncorrectPasswordException extends Exception {
 		super();
 	}
 
+	/**  erreur password
+    * @param message message 
+     * @return  message
+     */
 	public IncorrectPasswordException(String message) {
 		super(message);
 	}
