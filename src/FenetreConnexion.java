@@ -25,9 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-/**
-     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
-     */
+
 public class FenetreConnexion extends JFrame {
 
 	private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
@@ -44,6 +42,9 @@ public class FenetreConnexion extends JFrame {
 
 	JPanel contentPane;
 
+	/**
+     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
+     */
 	private FenetreConnexion() {
 		super("Connexion - B'ook la bibliotheque 2.0");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // termine le processus si la derniere fenêtre a été fermé
