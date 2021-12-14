@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreAjoutPc extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -132,7 +135,10 @@ public class FenetreAjoutPc extends JFrame{
     //Fin message d'erreur
     }
 
-    //Creation de l'instance ajout de pc
+    /**
+     * Renvoie l'instance de la FenetreAjoutPc si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreAjoutPc
+     */
     public static FenetreAjoutPc getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutPc();
@@ -140,14 +146,19 @@ public class FenetreAjoutPc extends JFrame{
         return instance;
     }
 
-    //Destruction de l'instance
+    /**
+     * Supprime l'instance de la FenetreAjoutPc et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
-    //Verifie les champs et appelle l'insertion d'un pc dans la bdd
+    /**
+     * Ajoute un Pc à la base de données suivant les information entrées dans la fenetre
+     * @throws SQLException
+     */
     private void actionAjoutPc() throws SQLException {
         JTextField[] txtFields = {txtMarque,txtSn};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2};
