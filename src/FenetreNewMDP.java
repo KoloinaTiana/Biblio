@@ -6,6 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
+
 public class FenetreNewMDP extends JFrame{
 
     private static final long serialVersionUID = 5983062096580235299L;
@@ -161,6 +162,9 @@ public class FenetreNewMDP extends JFrame{
         instance = null;
     }
 
+    /**
+    * Modifie le mot de passe d'un client suivant les informations entrées dans la fenetre
+    */
     private void actionNewMDP() throws IncorrectCodeException {
         lbWarningMDPconfirm.setVisible(false);
         lbWarningIncorrectCode.setVisible(false);
