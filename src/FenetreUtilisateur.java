@@ -325,6 +325,12 @@ public class FenetreUtilisateur extends JFrame {
 
     }
 
+    /**
+     * Permet de recharger le compteur de l'abonnement
+     * @param id id_client
+     * @throws SQLException
+     * @throws ParseException
+     */
     private void rechargerAbonnement(int id) throws SQLException, ParseException {
         Date dt = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -350,6 +356,12 @@ public class FenetreUtilisateur extends JFrame {
         }
     }
 
+    /**
+     * Permet de mettre à jour l'affichage du temps d'abonnement restant
+     * @param id
+     * @throws ParseException
+     * @throws SQLException
+     */
     private void majAbonnement(int id) throws ParseException, SQLException {
         String sub[] = Bibliotheque.getInstance().abonnementInfo(id);
         if (sub == null) { //pas d'abonnement
@@ -374,11 +386,18 @@ public class FenetreUtilisateur extends JFrame {
         }
     }
 
+    /**
+     * Renvoie tmps
+     * @return tmps
+     */
     public long getTmps() {
         return tmps;
     }
 
 
+    /**
+     * Permet d'afficher la liste des livres disponibles
+     */
     public void afficherTableauLivre() {
 
         try {
@@ -418,6 +437,9 @@ public class FenetreUtilisateur extends JFrame {
 
     }
 
+    /**
+     * Permet d'afficher la liste des salles disponibles
+     */
     public void afficherTableauSalle() {
         try {
             PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("SELECT ID_salle, Nombre_chaise, Nombre_table, Projecteur , Taille FROM salle WHERE EstDisponible = 1");
@@ -452,6 +474,9 @@ public class FenetreUtilisateur extends JFrame {
         }
     }
 
+    /**
+     * Permet d'afficher la liste des Pc disponibles
+     */
     public void afficherTableauPc() {
         try {
             PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("SELECT ID_pc, Marque, SN FROM pc WHERE EstDisponible = 1");
@@ -483,6 +508,10 @@ public class FenetreUtilisateur extends JFrame {
         }
     }
 
+    /*
+    * Renvoie l'instance du client
+    * @return instance du client
+    */
     public Client getClient() {
         return client;
     }
@@ -523,6 +552,7 @@ public class FenetreUtilisateur extends JFrame {
     }
 }
 
+//Permet d'afficher les boutons Info dans la liste des livres disponibles
 class ButtonRendererInfo extends JButton implements TableCellRenderer {
 
     private static final long serialVersionUID = -4008051814163131780L;
@@ -593,7 +623,7 @@ class ButtonEditorInfo extends DefaultCellEditor {
     }
 }
 
-
+//Permet d'afficher les boutons Emprunter dans la liste des livres disponibles
 class ButtonRendererEmprunter extends JButton implements TableCellRenderer {
 
     private static final long serialVersionUID = -3515681451726103450L;
@@ -664,6 +694,7 @@ class ButtonEditorEmprunter extends DefaultCellEditor {
     }
 }
 
+//Permet d'afficher les boutons Reserver dans la liste des salles disponibles
 class ButtonRendererReserver extends JButton implements TableCellRenderer {
 
 
@@ -735,6 +766,7 @@ class ButtonEditorReserver extends DefaultCellEditor {
     }
 }
 
+//Permet d'afficher les boutons Reserver dans la liste des Pc disponibles
 class ButtonRendererPC extends JButton implements TableCellRenderer {
 
     private static final long serialVersionUID = -3515681451726103450L;
