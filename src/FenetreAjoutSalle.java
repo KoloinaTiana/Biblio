@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+     * Constructeur de l'instance FenetreAjoutSalle, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreAjoutSalle extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -201,7 +204,10 @@ public class FenetreAjoutSalle extends JFrame{
         txtTable.setText(""+table);
     }
 
-    //Creation de l'instance ajout de salle
+    /**
+     * Renvoie l'instance de la FenetreAjoutSalle si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreAjoutSalle
+     */
     public static FenetreAjoutSalle getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutSalle();
@@ -209,14 +215,19 @@ public class FenetreAjoutSalle extends JFrame{
         return instance;
     }
 
-    //Destruction de l'instance
+    /**
+     * Supprime l'instance de la FenetreAjoutSalle et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
-    //Verification des champs et appel de l'insertion d'une salle dans la bdd
+    /**
+     * Ajoute une salle à la base de données suivant les information entrées dans la fenetre
+     * @throws SQLException
+     */
     private void actionAjoutSalle() throws SQLException {
         JTextField[] txtFields = {txtTaille};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1};
