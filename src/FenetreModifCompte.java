@@ -6,6 +6,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
+/**
+     * Constructeur de l'instance FenetreModifCompte, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreModifCompte extends JFrame {
 
     private static final long serialVersionUID = 5739633010639612024L;
@@ -263,6 +266,9 @@ public class FenetreModifCompte extends JFrame {
         instance = null;
     }
 
+    /**
+    * Modifie les informations d'un client suivant les paramètres entrées dans la fenetre
+    */
     private void actionModifCompte() {
         JTextField[] txtFields = {txtIdentifiant,txtPrenom,txtNom,txtAdresse,txtNumeroTelephone,txtEmail};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2,lbWarningMissTxt_3,lbWarningMissTxt_4,lbWarningMissTxt_5,lbWarningMissTxt_6};
