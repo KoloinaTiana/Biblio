@@ -9,6 +9,17 @@ public class Client extends Compte{
     public String eMail;
     //private boolean estAbonne;
 
+    /**
+     * Constructeur de la classe Client
+     * @param ID
+     * @param _identifiant
+     * @param _motDePasse
+     * @param _prenom
+     * @param _nom
+     * @param _adresse
+     * @param _numeroTelephone
+     * @param _Email
+     */
     public Client(int ID, String _identifiant, String _motDePasse, String _prenom, String _nom, String _adresse, String _numeroTelephone, String _Email) {
 
         super(_identifiant,_motDePasse,_prenom,_nom);
