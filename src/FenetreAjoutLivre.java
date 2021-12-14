@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+     * Constructeur de l'instance FenetreAjoutLivre, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreAjoutLivre extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -161,7 +164,10 @@ public class FenetreAjoutLivre extends JFrame{
 
     }
 
-    //Creation d'une instance d'ajout de livre
+    /**
+     * Renvoie l'instance de la FenetreAjoutLivre si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreAjoutLivre
+     */
     public static FenetreAjoutLivre getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutLivre();
@@ -169,13 +175,19 @@ public class FenetreAjoutLivre extends JFrame{
         return instance;
     }
 
+    /**
+     * Supprime l'instance de la FenetreAjoutLivre et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
-    //Fonction qui verifie les champs et appelle l'ajout de livre dans la bdd
+    /**
+     * Ajoute un livre à la base de données suivant les information entrées dans la fenetre
+     * @throws SQLException
+     */
     private void actionAjoutLivre() throws SQLException {
         JTextField[] txtFields = {txtTitre,txtAuteur};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2};
