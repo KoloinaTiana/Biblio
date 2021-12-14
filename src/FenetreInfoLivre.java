@@ -9,6 +9,9 @@ import javax.swing.JTextArea;
 
 
 
+	/**
+    	 * Constructeur de l'instance FenetreInfoLivre, initialise la fenetre (design, taille , bouton etc...) 
+     	*/
 	public class FenetreInfoLivre extends JFrame{
 	    private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
