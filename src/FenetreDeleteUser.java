@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+     * Constructeur de l'instance FenetreDeleteUser, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreDeleteUser extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -136,7 +139,10 @@ public class FenetreDeleteUser extends JFrame{
         }
     }
 
-    //Creation instance suppression utilisateur
+    /**
+     * Renvoie l'instance de la FenetreDeleteUser si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreDeleteUser
+     */
     public static FenetreDeleteUser getInstance() {
         if( instance == null ) {
             instance = new FenetreDeleteUser();
@@ -144,14 +150,19 @@ public class FenetreDeleteUser extends JFrame{
         return instance;
     }
 
-    //Destruction de l'utilisateur
+    /**
+     * Supprime l'instance de la FenetreDeleteUser et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
-    //Verification du champ et appel suppression de l'utilisateur dans la bdd
+    /**
+     * Supprime un client choisie sur la fenetre
+     * @throws SQLException
+     */
     private void actionDeleteUser() throws SQLException {
         JTextField[] txtFields = {txtIdentifiant};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_0};
