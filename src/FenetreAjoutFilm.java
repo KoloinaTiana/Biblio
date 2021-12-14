@@ -18,6 +18,9 @@ public class FenetreAjoutFilm extends JFrame{
     private JLabel lbWarningMissTxt_2;
 
 
+    /**
+     * Constructeur de l'instance FenetreAjoutFilm, initialise la fenetre (design, taille , bouton etc...) 
+     */
     public FenetreAjoutFilm() {
 
     //Debut caracteristique de la fenetre
@@ -148,7 +151,10 @@ public class FenetreAjoutFilm extends JFrame{
 
     }
 
-    //Creation d'une instance pour l'ajout d'un film
+    /**
+     * Renvoie l'instance de la FenetreAjoutFilm si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreAjoutFilm
+     */
     public static FenetreAjoutFilm getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutFilm();
@@ -156,14 +162,20 @@ public class FenetreAjoutFilm extends JFrame{
         return instance;
     }
 
-    //Destruction de l'instance
+    /**
+     * Supprime l'instance de la FenetreAjoutFilm et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
-    //Verification des champs d'entrees et appel de l'insertion dans la bdd
+    /**
+     * Ajoute un film à la base de données suivant les informations entrées à l'écran
+     * @throws SQLException
+     * @throws ParseException
+     */
     private void actionAjoutFilm() throws SQLException, ParseException {
         JTextField[] txtFields = {txtTitre,txtRealisateur};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2};
