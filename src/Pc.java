@@ -15,7 +15,7 @@ public class Pc {
 
 	/**
 	 * Permet de modifier la valeur de la boolean estReserve
-	 * @param estReserve
+	 * @param estReserve indique si le Pc est reservé
 	 */
 	public void setEstReserve(boolean estReserve) {
 		this.estReserve = estReserve;
