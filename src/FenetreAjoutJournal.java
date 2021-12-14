@@ -8,9 +8,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-/**
-     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
-     */
+
 public class FenetreAjoutJournal extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -25,6 +23,9 @@ public class FenetreAjoutJournal extends JFrame{
     private JLabel lbWarningMissTxt_3;
     
 
+	/**
+     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
+     */
     public FenetreAjoutJournal()   {
 
     //Debut caracteristique de la fenetre
