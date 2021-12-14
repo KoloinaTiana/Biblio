@@ -3,9 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-/**
-     * Constructeur de l'instance FenetreDeleteUser, initialise la fenetre (design, taille , bouton etc...) 
-     */
+
 public class FenetreDeleteUser extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -17,6 +15,9 @@ public class FenetreDeleteUser extends JFrame{
     private JLabel lbWarningUserNotFound;
     private  boolean exist = false;
 
+    /**
+     * Constructeur de l'instance FenetreDeleteUser, initialise la fenetre (design, taille , bouton etc...) 
+     */
     public FenetreDeleteUser() {
 
     //Debut caracteristiques de la fenetre
