@@ -51,7 +51,7 @@ public class Client extends Compte{
 
     }
 
-    /** affiche l'id 
+    /** Renvoie l'id 
      * @return id
      */
     
@@ -60,7 +60,7 @@ public class Client extends Compte{
         return ID;
     }
 
-    /** affiche l'adresse
+    /** Renvoie l'adresse
      * @return adresse
      */
     
@@ -68,7 +68,7 @@ public class Client extends Compte{
         return adresse;
     }
 
-    /** affiche le mail
+    /** Renvoie le mail
      * @return mail
      */
     
@@ -76,7 +76,7 @@ public class Client extends Compte{
         return eMail;
     }
 
-    /** affiche le numero de telephone
+    /** Renvoie le numero de telephone
      * @return numerodetelephone
      */
     
