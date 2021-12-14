@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+     * Constructeur de l'instance FenetreModifUser, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreModifUser extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -227,7 +230,9 @@ public class FenetreModifUser extends JFrame{
     //Fin messages d'erreur
     }
 
-    //Bouton qui recherche le client dans la bdd
+    /**
+    * Cherche un client dans la base de données suivant les informations entrées dans la fenetre
+    */
     private void actionFind() {
         lbWarningUserNotFound.setVisible(false);
         if(txtIdentifiant.getText().length() == 0) { //champ identifiant vide
@@ -279,7 +284,9 @@ public class FenetreModifUser extends JFrame{
         instance = null;
     }
 
-    //Verification du champ et appel modification de l'utilisateur dans la bdd
+    /**
+    * Modifie les informations d'un client suivant les paramètres entrées dans la fenetre
+    */
     private void actionModifUser() throws SQLException {
         JTextField[] txtFields = {txtNom,txtPrenom,txtAdresse,txtTelephone,txtEmail};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2,lbWarningMissTxt_3,lbWarningMissTxt_4,lbWarningMissTxt_5};
