@@ -11,21 +11,28 @@ public class Bibliotheque{
 
     private static Bibliotheque instance;
 
-
-    @SuppressWarnings("unused")
-    private ArrayList<Pc> machines;
-    @SuppressWarnings("unused")
-    private ArrayList<Salle> salles;
-
     private Connection connexion;
-
+    
+     /**
+     * Constructeur de la classe Bibliotheque
+     * initialise l'instance de connexion de la base de données
+     */
     private Bibliotheque() {
-        machines = new ArrayList<Pc>();
-        salles = new ArrayList<Salle>();
         connexion = databaseConnexion();
     }
 
-
+     /**
+     * Permet de vérifier les informations de connexion,
+     * cherche d'abord dans la base de données des clients
+     * puis dans la base de données des admins
+     * et enfin vérifie si le mot de passe est bon
+     * @param id identifiant 
+     * @param mdp mot de passe
+     * @return compte
+     * @throws UserNotFoundException compte non trouvé
+     * @throws IncorrectPasswordException mot de passe incorrecte
+     * @throws SQLException
+     */
     public Compte connexion(String id, String mdp) throws UserNotFoundException, IncorrectPasswordException , SQLException{
         Compte openClient;
         openClient = trouverUtilisateur(id);
@@ -42,6 +49,14 @@ public class Bibliotheque{
 
     }
 
+    /**
+     * Vérifie si le code de vérification envoyé par mail est correcte
+     * @param mail adresse mail du client
+     * @param code code de vérification envoyé par mail
+     * @return 'ok' si le code est bon 
+     * @throws IncorrectCodeException code incorrecte 
+     * @throws SQLException
+     */
     public String findCode(String mail, int code) throws IncorrectCodeException, SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -57,6 +72,12 @@ public class Bibliotheque{
 
     }
 
+    /**
+     * Vérifie si un client est associé à un abonnement dans la base de données
+     * @param id id_client
+     * @return 'ok' si l'abonnement se trouve dans la base de données, 'ko' sinon
+     * @throws SQLException
+     */
     public String hasSubscribed(int id) throws SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -72,6 +93,13 @@ public class Bibliotheque{
 
     }
 
+    /**
+     * Vérifie si un mail est associé à un client dans la base de données
+     * @param mail
+     * @return 'OK' si un client est trouvé
+     * @throws MailNotFoundException le mail n'appartient à aucun client
+     * @throws SQLException
+     */
     public String findMail(String mail) throws MailNotFoundException, SQLException{
         Compte openClient;
         openClient = trouverUtilisateurMail(mail);
@@ -83,6 +111,16 @@ public class Bibliotheque{
 
     }
 
+     /**
+     * Inscrit un nouveau client dans la base de données
+     * @param id identifiant 
+     * @param mdp mot de passe
+     * @param prenom
+     * @param nom
+     * @param adresse
+     * @param nTel numero de telephone
+     * @param eMail adresse mail
+     */
     public void inscriptionClient (String id, String mdp, String prenom, String nom, String adresse, String nTel, String eMail) {
         try {
             Statement stmt = connexion.createStatement();
@@ -94,6 +132,17 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Modifie les informations d'un client réferencé par son id_cleint dans la base de données 
+     * @param id id_client
+     * @param ident identifiant
+     * @param mdp mot de passe
+     * @param prenom
+     * @param nom
+     * @param adresse
+     * @param nTel numero de telephone
+     * @param eMail adresse mail
+     */
     public void modificationCompte (int id,String ident, String mdp, String prenom, String nom, String adresse, String nTel, String eMail) {
         try {
             Statement stmt = connexion.createStatement();
@@ -103,6 +152,10 @@ public class Bibliotheque{
         }
     }
 
+     /**
+     * Connexion à la base de données
+     * @return instance de connexion à la base de données
+     */
     private Connection databaseConnexion(){
         String url = "jdbc:mysql://localhost:3306/bibliotheque";
         String userName = "root";
@@ -117,6 +170,12 @@ public class Bibliotheque{
         }
     }
 
+     /**
+     * Cherche un admin dans la base de données à partir de son identifiant
+     * @param id identifiant
+     * @return l'instance de l'admin si l'admin est trouvé, null sinon
+     * @throws SQLException
+     */
     public Admin trouverAdmin(String id) throws SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -137,6 +196,13 @@ public class Bibliotheque{
         }
     }
 
+     /**
+     * Cherche un client dans la base de données à partir de son identifiant
+     * @param id identifiant
+     * @return l'instance du client s'il est trouvé, null sinon
+     * @throws UserNotFoundException
+     * @throws SQLException
+     */
     public Client trouverUtilisateur(String id) throws UserNotFoundException, SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -160,6 +226,12 @@ public class Bibliotheque{
         }
     }
 
+     /**
+     * Cherche un client dans la base de données à partir de son mail
+     * @param mail
+     * @return l'instance du client s'il est trouvé, null sinon
+     * @throws SQLException
+     */
     public Client trouverUtilisateurMail(String mail) throws SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -184,6 +256,10 @@ public class Bibliotheque{
         }
     }
 
+     /**
+     * Renvoie l'instance de la Bibliotheque si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton Bibliotheque
+     */
     public static Bibliotheque getInstance() {
         if( instance == null ) {
             instance = new Bibliotheque();
@@ -191,6 +267,12 @@ public class Bibliotheque{
         return instance;
     }
 
+     /**
+     * Vérifie si un client existe dans la base de données à partir de son identifiant
+     * @param id identifiant
+     * @return true si le client est trouvé, false sinon
+     * @throws SQLException
+     */
     public boolean isUserExist(String id) throws SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -204,6 +286,13 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Vérifie si l'id_client est bien assosié à un indentifiant client entrée en paramètre
+     * @param id id_client
+     * @param ident identifiant
+     * @return true s'il le client est trouvé, false sinon
+     * @throws SQLException
+     */
     public boolean isDifferentUser(int id,String ident) throws SQLException{
         try {
             Statement stmt = connexion.createStatement();
@@ -217,6 +306,14 @@ public class Bibliotheque{
         }
     }
 
+     /**
+     * Ajoute une salle à la base de données
+     * @param nbrchaise
+     * @param nbrtable
+     * @param projecteur
+     * @param taille
+     * @throws SQLException
+     */
     public void ajoutsalle(int nbrchaise, int nbrtable, int projecteur, int taille) throws SQLException {
         String requete = "INSERT INTO `salle`(`Nombre_chaise`,`Nombre_table`, `Projecteur`, `Taille`) VALUES ('"+ nbrchaise +"','"+ nbrtable +"','"+ projecteur +"','"+ taille +"')";
 
@@ -229,6 +326,12 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Renvoie les information de l'abonnement d'un client
+     * @param id id_client
+     * @return instance d'abonnement du client
+     * @throws SQLException
+     */
     public String[] abonnementInfo(int id) throws SQLException {
         String requete = "SELECT * FROM `abonnement` WHERE `ID_client` = "+ id;
 
@@ -251,10 +354,20 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Renvoie l'instance de connexion à la base de données
+     * @return instance de connexion à la base de données
+     */
     public Connection getConnexion() {
         return connexion;
     }
 
+    /**
+     * Ajoute un Pc à la base de données
+     * @param marque
+     * @param sn numéro de série
+     * @throws SQLException
+     */
     public void ajoutpc (String marque, String sn) throws SQLException {
         String requete = "INSERT INTO `pc`(`Marque`,`SN`) VALUES ('"+ marque +"','"+ sn +"')";
 
@@ -267,6 +380,14 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Ajoute un livre à la base de données
+     * @param titre
+     * @param auteur
+     * @param sujet
+     * @param resume
+     * @throws SQLException
+     */
     public void ajoutlivre (String titre, String auteur, String sujet, String resume) throws SQLException {
         String requete = "INSERT INTO `livre`(`Titre`,`Auteur`, `Resume`, `Sujet`) VALUES ('"+ titre +"','"+ auteur +"','"+ resume +"','"+ sujet +"')";
 
@@ -279,6 +400,13 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Ajoute un journal à la base de données
+     * @param Editorial
+     * @param Date
+     * @param Nom
+     * @throws SQLException
+     */
     public void ajoutJournal (String Editorial, String Date, String Nom) throws SQLException {
         String requete = "INSERT INTO `journal`(`Editorial`,`Journal_date`, `Journal_nom`) VALUES ('"+ Editorial +"','"+ Date +"','"+ Nom +"')";
 
@@ -291,6 +419,13 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Ajoute un film à la base de données
+     * @param titre
+     * @param realisateur
+     * @param annee
+     * @throws SQLException
+     */
     public void ajoutFilm(String titre, String realisateur, Year annee) throws SQLException {
         String requete = "INSERT INTO `film`(`Titre`,`Realisateur`, `Annee_sortie`) VALUES ('"+ titre +"','"+ realisateur +"','"+ annee+"')";
 
@@ -303,6 +438,16 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Modifie les informations d'un client trouvé à partir de son identifiant
+     * @param identifiant
+     * @param nom
+     * @param prenom
+     * @param adresse
+     * @param telephone
+     * @param email
+     * @throws SQLException
+     */
     public void modifUser(String identifiant, String nom, String prenom, String adresse, String telephone, String email) throws SQLException {
         String requete = "UPDATE `client` SET `Nom` ='"+nom+"', `Prenom` ='"+prenom+"', `Numero de telephone` ='"+telephone+"', `Adresse` ='"+adresse+"', `Email` ='"+email+"' WHERE `Identifiant` ='"+identifiant+"'";
         try {
@@ -315,6 +460,11 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Supprime un client de la base de données
+     * @param id identifiant
+     * @throws SQLException
+     */
     public void deleteUser(String id) throws SQLException {
         String requete = "DELETE FROM `client` WHERE `Identifiant` ='"+id+"'";
         try {
@@ -327,6 +477,11 @@ public class Bibliotheque{
         }
     }
 
+    /**
+     * Modifie le mot de passe d'un client trouvé à partir de son mail
+     * @param m
+     * @param password
+     */
     public void newMDP(String m, String password) {
         try {
             Statement stmt = connexion.createStatement();
