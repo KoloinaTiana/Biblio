@@ -279,7 +279,7 @@ public class FenetreConnexion extends JFrame {
 	}
 
 	/**
-	 * Inscrit un nouveau client suivant les informations entrées dans la fenetre
+	 * Ouvre la fenetre inscription
 	 */
 	private void actionInscription(){
 		FenetreInscription fenetreInscription = FenetreInscription.getInstance();
