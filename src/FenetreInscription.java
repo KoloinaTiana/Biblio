@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+/**
+     * Constructeur de l'instance FenetreInscription, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreInscription extends JFrame{
 
 	private static final long serialVersionUID = -4215662694350105451L;
@@ -241,6 +244,10 @@ public class FenetreInscription extends JFrame{
 		});
 	}
 
+	/**
+     * Renvoie l'instance de la FenetreInscription si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreInscription
+     */
 	public static FenetreInscription getInstance() {
 		if( instance == null ) {
 			instance = new FenetreInscription();
@@ -248,12 +255,18 @@ public class FenetreInscription extends JFrame{
 		return instance;
 	}
 
+	/**
+     * Supprime l'instance de la FenetreInscription et ferme la fenetre à l'ecran
+     */
 	public static void killInstance() {
 		if (instance != null)
 			instance.setVisible(false);
 		instance = null;
 	}
 
+	/**
+	*Inscrit un nouveau client suivant les informations entrées dans la fenetre
+	*/
 	private void actionInscription() {
 		JTextField[] txtFields = {txtIdentifiant,txtPrenom,txtNom,txtAdresse,txtNumeroTelephone,txtEmail};
 		JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_2,lbWarningMissTxt_3,lbWarningMissTxt_4,lbWarningMissTxt_5,lbWarningMissTxt_6};
