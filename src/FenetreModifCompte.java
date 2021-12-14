@@ -6,9 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
-/**
-     * Constructeur de l'instance FenetreModifCompte, initialise la fenetre (design, taille , bouton etc...) 
-     */
 public class FenetreModifCompte extends JFrame {
 
     private static final long serialVersionUID = 5739633010639612024L;
