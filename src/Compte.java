@@ -6,7 +6,13 @@ public abstract class Compte {
 	protected String prenom;
 	protected String nom;
 
-	
+	/**
+	 * Constructeur de la classe compte
+	 * @param _identifiant
+	 * @param _motDePasse
+	 * @param _prenom
+	 * @param _nom
+	 */
 	public Compte(String _identifiant, String _motDePasse, String _prenom, String _nom) {
 		this.identifiant = _identifiant;
 		this.motDePasse = _motDePasse;
