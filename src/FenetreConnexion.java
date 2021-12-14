@@ -25,6 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreConnexion extends JFrame {
 
 	private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
@@ -221,6 +224,9 @@ public class FenetreConnexion extends JFrame {
 
 	}
 
+	/**
+	 * Vérifie les informations de connexion puis ouvre la fenetre utilisateur ou la fenetre admin
+	 */
 	private void actionConnexion() {
 		lbWarningUserNotFound.setVisible(false);
 		lbWarningIncorrectPassword.setVisible(false);
@@ -272,6 +278,9 @@ public class FenetreConnexion extends JFrame {
 		}
 	}
 
+	/**
+	 * Inscrit un nouveau client suivant les informations entrées dans la fenetre
+	 */
 	private void actionInscription(){
 		FenetreInscription fenetreInscription = FenetreInscription.getInstance();
 		fenetreInscription.setVisible(true);
@@ -279,6 +288,9 @@ public class FenetreConnexion extends JFrame {
 		FenetreOublieMDP.killInstance();
 	}
 
+	/**
+	 * Ouvre la fenetre oublie mot de passe
+	 */
 	private void actionOublieMDP() {
 		FenetreOublieMDP fenetreOublieMDP = FenetreOublieMDP.getInstance();
 		fenetreOublieMDP.setVisible(true);
@@ -286,6 +298,10 @@ public class FenetreConnexion extends JFrame {
 		FenetreInscription.killInstance();
 	}
 
+	/**
+   	  * Renvoie l'instance de la FenetreConnexion si elle existe ou en crée une si elle n'existe pas
+ 	    * @return instance du singleton FenetreConnexion
+  	   */
 	public static FenetreConnexion getInstance() {
 		if( instance == null ) {
 			instance = new FenetreConnexion();
@@ -293,6 +309,9 @@ public class FenetreConnexion extends JFrame {
 		return instance;
 	}
 
+	/**
+  	   * Supprime l'instance de la FenetreConnexion et ferme la fenetre à l'ecran
+    	 */
 	public static void killInstance() {
 		if (instance != null)
 			instance.setVisible(false);
