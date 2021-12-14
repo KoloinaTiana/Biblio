@@ -280,56 +280,72 @@ public class FenetreAdmin extends JFrame{
     //Fin fonctionnalités de l'administrateur
     }
 
-    //Suppression d'un utilisateur
+    /*
+    * Ouvre la fenetre fenetreDeleteUser
+    */
     private void actionDelete() {
         FenetreDeleteUser fenetreDeleteUser = FenetreDeleteUser.getInstance();
         fenetreDeleteUser.setVisible(true);
         fenetreDeleteUser.setLocationRelativeTo(contentPane);
     }
 
-    //Modification d'un utilisateur
+    /*
+    * Ouvre la fenetre fenetreDeleteUser
+    */
     private void actionModif() {
         FenetreModifUser fenetreModifUser = FenetreModifUser.getInstance();
         fenetreModifUser.setVisible(true);
         fenetreModifUser.setLocationRelativeTo(contentPane);
     }
 
-    //Ajout d'un film
+    /*
+    * Ouvre la fenetre fenetreDeleteUser
+    */
     private void actionAjoutFilm() {
         FenetreAjoutFilm fenetreAjoutFilm = FenetreAjoutFilm.getInstance();
         fenetreAjoutFilm.setVisible(true);
         fenetreAjoutFilm.setLocationRelativeTo(contentPane);
     }
 
-    //Ajout d'un journal
+    /*
+    * Ouvre la fenetre fenetreAjoutJournal
+    */
     private void actionAjoutJournal() {
         FenetreAjoutJournal fenetreAjoutJournal = FenetreAjoutJournal.getInstance();
         fenetreAjoutJournal.setVisible(true);
         fenetreAjoutJournal.setLocationRelativeTo(contentPane);
     }
 
-    //Ajout d'une salle
+    /*
+    * Ouvre la fenetre fenetreAjoutSalle
+    */
     private void actionAjoutSalle() {
         FenetreAjoutSalle fenetreAjoutSalle = FenetreAjoutSalle.getInstance();
         fenetreAjoutSalle.setVisible(true);
         fenetreAjoutSalle.setLocationRelativeTo(contentPane);
     }
 
-    //Ajout d'un livre
+    /*
+    * Ouvre la fenetre fenetreAjoutLivre
+    */
     private void actionAjoutLivre(){
         FenetreAjoutLivre fenetreAjoutLivre = FenetreAjoutLivre.getInstance();
         fenetreAjoutLivre.setVisible(true);
         fenetreAjoutLivre.setLocationRelativeTo(contentPane);
     }
 
-    //Ajout d'un pc
+    /*
+    * Ouvre la fenetre fenetreAjoutPc
+    */
     private void actionAjoutPc(){
         FenetreAjoutPc fenetreAjoutPc = FenetreAjoutPc.getInstance();
         fenetreAjoutPc.setVisible(true);
         fenetreAjoutPc.setLocationRelativeTo(contentPane);
     }
 
-    //Affichage du tableau par rapport à la recherche
+    /*
+    * Affiche la liste des clients suivant les paramètres de recherche entrées dans la fenetre
+    */
     private void afficherTableau() {
 
         try {
@@ -343,7 +359,9 @@ public class FenetreAdmin extends JFrame{
 
     }
 
-    //Affichage de la liste des clients
+    /*
+    * Affiche la liste des clients 
+    */
     private void afficheliste() throws SQLException {
         try {
             Connection con = Bibliotheque.getInstance().getConnexion();
