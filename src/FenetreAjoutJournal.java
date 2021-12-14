@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+/**
+     * Constructeur de l'instance FenetreAjoutJournal, initialise la fenetre (design, taille , bouton etc...) 
+     */
 public class FenetreAjoutJournal extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -152,7 +155,10 @@ public class FenetreAjoutJournal extends JFrame{
 
     }
 
-    //Creation d'une instance d'ajout de journal
+    /**
+     * Renvoie l'instance de la FenetreAjoutJournal si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreAjoutFilm
+     */
     public static FenetreAjoutJournal getInstance() {
         if( instance == null ) {
             instance = new FenetreAjoutJournal();
@@ -160,14 +166,19 @@ public class FenetreAjoutJournal extends JFrame{
         return instance;
     }
 
-    //Fonction qui detruit l'instance
+    /**
+     * Supprime l'instance de la FenetreAjoutJournal et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
-    //Verification des champs d'entrees et appel de l'insertion du journal dans la bdd
+    /**
+     * Ajoute un journal à la base de données suivant les information entrées dans la fenetre
+     * @throws SQLException
+     */
     private void actionAjoutJournal() throws SQLException {
         JTextField[] txtFields = {txtEditorial,txtNom};
         JLabel[] warningsMissTxts = {lbWarningMissTxt_1,lbWarningMissTxt_3};
