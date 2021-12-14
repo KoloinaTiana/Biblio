@@ -5,9 +5,7 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-/**
-     * Constructeur de l'instance FenetreInscription, initialise la fenetre (design, taille , bouton etc...) 
-     */
+
 public class FenetreInscription extends JFrame{
 
 	private static final long serialVersionUID = -4215662694350105451L;
@@ -33,6 +31,9 @@ public class FenetreInscription extends JFrame{
 	private JLabel lbWarningUserExist;
 
 
+	/**
+     * Constructeur de l'instance FenetreInscription, initialise la fenetre (design, taille , bouton etc...) 
+     */
 	private FenetreInscription() {
 		super("Inscription - B'ook la bibliotheque 2.0");
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
