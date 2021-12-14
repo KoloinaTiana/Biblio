@@ -23,6 +23,9 @@ public class FenetreOublieMDP extends JFrame {
 
     private Connection connexion;
 
+    /**
+     * Constructeur de l'instance FenetreOublieMDP, initialise la fenetre (design, taille , bouton etc...) 
+     */
     private FenetreOublieMDP() {
         super("Mot de passe oublie - B'ook la bibliotheque 2.0");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -92,6 +95,10 @@ public class FenetreOublieMDP extends JFrame {
         lbWarningMailNotFound.setVisible(false);
     }
 
+    /**
+     * Renvoie l'instance de la FenetreOublieMDP si elle existe ou en crée une si elle n'existe pas
+     * @return instance du singleton FenetreOublieMDP
+     */
     public static FenetreOublieMDP getInstance() {
         if (instance == null) {
             instance = new FenetreOublieMDP();
@@ -99,12 +106,19 @@ public class FenetreOublieMDP extends JFrame {
         return instance;
     }
 
+    /**
+     * Supprime l'instance de la FenetreOublieMDP et ferme la fenetre à l'ecran
+     */
     public static void killInstance() {
         if (instance != null)
             instance.setVisible(false);
         instance = null;
     }
 
+    /**
+     * Permet d'envoyer un mail à un client suivant les informations entrées dans la fenetre
+     * @throws SQLException
+     */
     private void actionEnvoyerMail() throws SQLException {
 
         lbWarningMailNotFound.setVisible(false);
