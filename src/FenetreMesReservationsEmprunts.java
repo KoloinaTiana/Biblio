@@ -23,6 +23,7 @@ import javax.swing.table.TableCellRenderer;
 
 import net.proteanit.sql.DbUtils;
 
+
 public class FenetreMesReservationsEmprunts extends JFrame{
 
 	private static final long serialVersionUID = 7601905195101906770L;
@@ -35,6 +36,10 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 	private JTable tablePC;
 
 
+	/**
+     * Constructeur de l'instance FenetreMesReservationsEmprunts, initialise la fenetre (design, taille , bouton etc...) 
+     * @param client
+     */
 	private FenetreMesReservationsEmprunts(Client client) {
 		super("Mes reservations et emprunts - B'ook la bibliotheque 2.0");
 
@@ -48,7 +53,7 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 				dispose();
 			}
 		});
-		this.setResizable(false);// emp�che toutes modifications de la taille de la fen�tre
+		this.setResizable(false);// empêche toutes modifications de la taille de la fenêtre
 
 		//definit sa taille
 		this.setSize(800, 800);
@@ -103,6 +108,11 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 		contentPane.add(lbPC);
 	}
 
+	/**
+     * Renvoie l'instance de la FenetreMesReservationsEmprunts si elle existe ou en crée une avec le paramètre client si elle n'existe pas
+     * @param client
+     * @return instance du singleton FenetreMesReservationsEmprunts
+     */
 	public static FenetreMesReservationsEmprunts getInstance(Client client) {
 		if( instance == null ) {
 			instance = new FenetreMesReservationsEmprunts(client);
@@ -110,12 +120,20 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 		return instance;
 	}
 
+	/**
+     * Supprime l'instance de la FenetreMesReservationsEmprunts et ferme la fenetre à l'ecran
+     */
 	public static void killInstance() {
 		if (instance != null)
 			instance.setVisible(false);
 		instance = null;
 	}
 
+	/**
+	 * Renvoie l'instance de la FenetreMesReservationsEmprunts si elle existe
+	 * @return instance de la FenetreMesReservationsEmprunts
+	 * @throws Exception l'instance n'existe pas
+	 */
 	public static FenetreMesReservationsEmprunts getInstance() throws Exception{
 		if( instance == null ) {
 			throw new Exception();
@@ -124,6 +142,9 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 	}
 
 
+	/**
+	 * Affiche le tableau des livres emprunté par le client
+	 */
 	public void afficherTableauLivre() {
 
 		try {
@@ -159,6 +180,9 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 
 	}
 
+	/**
+	 * Affiche le tableau des salles reservées par le client
+	 */
 	public void afficherTableauSalle() {
 		try {
 			PreparedStatement ps = Bibliotheque.getInstance().getConnexion().prepareStatement("SELECT ID_salle, Nombre_chaise, Nombre_table, Projecteur , Taille FROM salle WHERE ID_client = " + client.getID());
@@ -194,6 +218,9 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 
 	}
 
+	/**
+	 * Affiche le tableau des Pc réservés par le client
+	 */
 	public void afficherTableauPc() {
 
 		try {
@@ -230,6 +257,7 @@ public class FenetreMesReservationsEmprunts extends JFrame{
 
 }
 
+//Permet d'afficher les boutons pour rendre un livre dans le taleau des livres empruntés
 class ButtonRendererRendreLivre extends JButton implements TableCellRenderer {
 
 	private static final long serialVersionUID = -3648916372261420234L;
@@ -296,6 +324,8 @@ class ButtonEditorRendreLivre extends DefaultCellEditor {
 	}
 }
 
+
+//Permet d'afficher les boutons pour rendre une salle dans le taleau des salles reservées
 class ButtonRendererRendreSalle extends JButton implements TableCellRenderer {
 
 	private static final long serialVersionUID = 3215034570725023894L;
@@ -361,6 +391,7 @@ class ButtonEditorRendreSalle extends DefaultCellEditor {
 	}
 }
 
+//Permet d'afficher les boutons pour rendre un Pc dans le taleau des Pc reservés
 class ButtonRendererRendrePC extends JButton implements TableCellRenderer {
 
 	private static final long serialVersionUID = 3215034570725023894L;
