@@ -3,9 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-/**
-     * Constructeur de l'instance FenetreAjoutSalle, initialise la fenetre (design, taille , bouton etc...) 
-     */
+
 public class FenetreAjoutSalle extends JFrame{
     private static final long serialVersionUID = 1956692087798942826L; // permet d'enlever un warning (pas important car on ne l'utilise pas)
 
@@ -22,6 +20,9 @@ public class FenetreAjoutSalle extends JFrame{
 
     private JLabel lbWarningMissTxt_1;
 
+    /**
+     * Constructeur de l'instance FenetreAjoutSalle, initialise la fenetre (design, taille , bouton etc...) 
+     */
     public FenetreAjoutSalle() {
 
     //Debut caracteristique de la fenetre
